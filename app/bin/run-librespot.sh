@@ -77,6 +77,14 @@ if [ -n "{$BACKEND}" ]; then
     CMD_LINE="$CMD_LINE --backend $BACKEND"
 fi
 
+if [ -n "{$BITRATE}" ]; then
+    CMD_LINE="$CMD_LINE --bitrate $BITRATE"
+fi
+
+if [ -n "{$INITIAL_VOLUME}" ]; then
+    CMD_LINE="$CMD_LINE --initial-volume $INITIAL_VOLUME"
+fi
+
 if [ -n "{$DEVICE_NAME}" ]; then
     CMD_LINE="$CMD_LINE --name $DEVICE_NAME"
 fi

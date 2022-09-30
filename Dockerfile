@@ -25,7 +25,10 @@ RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
 ENV SPOTIFY_USERNAME ""
 ENV SPOTIFY_PASSWORD ""
 
+ENV BITRATE ""
 ENV BACKEND ""
+
+ENV INITIAL_VOLUME ""
 
 ENV DEVICE_NAME ""
 ENV DEVICE_TYPE ""
