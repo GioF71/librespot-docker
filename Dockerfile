@@ -18,6 +18,8 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 
 RUN apt-get update
 RUN apt-get upgrade -y
+RUN apt-get install -y libasound2
+RUN apt-get install -y alsa-utils
 
 RUN apt-get -y install curl
 RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
@@ -32,6 +34,8 @@ ENV INITIAL_VOLUME ""
 
 ENV DEVICE_NAME ""
 ENV DEVICE_TYPE ""
+
+ENV DEVICE ""
 
 ENV PUID ""
 ENV PGID ""
