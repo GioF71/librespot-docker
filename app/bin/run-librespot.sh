@@ -2,10 +2,6 @@
 
 DEFAULT_STARTUP_DELAY_SEC=0
 
-#export DEFAULT_SQUEEZELITE_MODE=$SQUEEZELITE_MODE_ALSA
-#export DEFAULT_SQUEEZELITE_DELAY=500
-#export DEFAULT_SQUEEZELITE_TIMEOUT=2
-
 CMD_LINE="/usr/bin/librespot"
 
 DEFAULT_UID=1000
@@ -93,8 +89,16 @@ if [ -n "{$DEVICE_TYPE}" ]; then
     CMD_LINE="$CMD_LINE --device-type $DEVICE_TYPE"
 fi
 
+if [ -n "{$DEVICE}" ]; then
+    CMD_LINE="$CMD_LINE --device '$DEVICE'"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 #eval $CMD_LINE
 
-su - $USER_NAME -c "$CMD_LINE"
+if [ "{$BACKEND}" = "pulseaudio" ]; then
+  su - $USER_NAME -c "$CMD_LINE";
+else
+  eval $CMD_LINE;
+fi
 
