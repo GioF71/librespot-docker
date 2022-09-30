@@ -22,7 +22,23 @@ RUN apt-get upgrade -y
 RUN apt-get -y install curl
 RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
 
+ENV SPOTIFY_USERNAME ""
+ENV SPOTIFY_PASSWORD ""
+
+ENV BACKEND ""
+
+ENV PUID ""
+ENV PGID ""
+
+RUN mkdir -p /app/assets
+
+COPY app/assets/pulse-client-template.conf /app/assets/
+
+
 RUN which librespot
 
-#ENTRYPOINT ["/app/bin/run-librepot.sh"]
-ENTRYPOINT ["/usr/bin/librespot"]
+COPY app/bin/run-librespot.sh /app/bin/
+RUN chmod u+x /app/bin/run-librespot.sh
+
+WORKDIR /app/bin
+ENTRYPOINT ["/app/bin/run-librespot.sh"]
