@@ -61,42 +61,42 @@ sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
 cat $PULSE_CLIENT_CONF
 
 
-if [ -n "{$SPOTIFY_USERNAME" ]; then
+if [ -n "$SPOTIFY_USERNAME" ]; then
     CMD_LINE="$CMD_LINE --username $SPOTIFY_USERNAME"
 fi
 
-if [ -n "{$SPOTIFY_PASSWORD" ]; then
+if [ -n "$SPOTIFY_PASSWORD" ]; then
     CMD_LINE="$CMD_LINE --password '$SPOTIFY_PASSWORD'"
 fi
 
-if [ -n "{$BACKEND}" ]; then
+if [ -n "$BACKEND" ]; then
     CMD_LINE="$CMD_LINE --backend $BACKEND"
 fi
 
-if [ -n "{$BITRATE}" ]; then
+if [ -n "$BITRATE" ]; then
     CMD_LINE="$CMD_LINE --bitrate $BITRATE"
 fi
 
-if [ -n "{$INITIAL_VOLUME}" ]; then
+if [ -n "$INITIAL_VOLUME" ]; then
     CMD_LINE="$CMD_LINE --initial-volume $INITIAL_VOLUME"
 fi
 
-if [ -n "{$DEVICE_NAME}" ]; then
+if [ -n "$DEVICE_NAME" ]; then
     CMD_LINE="$CMD_LINE --name $DEVICE_NAME"
 fi
 
-if [ -n "{$DEVICE_TYPE}" ]; then
+if [ -n "$DEVICE_TYPE" ]; then
     CMD_LINE="$CMD_LINE --device-type $DEVICE_TYPE"
 fi
 
-if [ -n "{$DEVICE}" ]; then
+if [ -n "$DEVICE" ]; then
     CMD_LINE="$CMD_LINE --device '$DEVICE'"
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
 #eval $CMD_LINE
 
-if [ "{$BACKEND}" = "pulseaudio" ]; then
+if [ "$BACKEND" = "pulseaudio" ]; then
   su - $USER_NAME -c "$CMD_LINE";
 else
   eval $CMD_LINE;
