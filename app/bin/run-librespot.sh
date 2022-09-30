@@ -21,8 +21,8 @@ if [ -z "${PGID}" ]; then
   echo "Setting default value for PGID: ["$PGID"]"
 fi
 
-USER_NAME=sq-pulse
-GROUP_NAME=sq-pulse
+USER_NAME=librespot-user
+GROUP_NAME=librespot-group
 
 HOME_DIR=/home/$USER_NAME
 
@@ -75,6 +75,14 @@ fi
 
 if [ -n "{$BACKEND}" ]; then
     CMD_LINE="$CMD_LINE --backend $BACKEND"
+fi
+
+if [ -n "{$DEVICE_NAME}" ]; then
+    CMD_LINE="$CMD_LINE --name $DEVICE_NAME"
+fi
+
+if [ -n "{$DEVICE_TYPE}" ]; then
+    CMD_LINE="$CMD_LINE --device-type $DEVICE_TYPE"
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
