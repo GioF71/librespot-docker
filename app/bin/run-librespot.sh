@@ -2,7 +2,7 @@
 
 DEFAULT_STARTUP_DELAY_SEC=0
 
-CMD_LINE="/usr/bin/librespot"
+CMD_LINE="/app/bin/librespot"
 
 DEFAULT_UID=1000
 DEFAULT_GID=1000
