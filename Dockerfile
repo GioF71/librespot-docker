@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE} AS BUILD
+FROM rust:slim-bullseye AS BUILD
 ARG USE_APT_PROXY
 ARG USE_BRANCH
 
@@ -17,17 +17,18 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 	echo "Building without proxy"; \
 	fi
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y curl
-RUN apt-get install -y git 
-RUN apt-get install -y build-essential
-RUN apt-get install -y libasound2-dev
-RUN apt-get install -y libpulse-dev
-RUN apt-get install -y pkg-config
-RUN apt-get install -y libavahi-compat-libdnssd-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libasound2-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libpulse-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libavahi-compat-libdnssd-dev
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# NO need to install rust
+#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 RUN mkdir -p /app/source
 
