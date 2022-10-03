@@ -19,8 +19,36 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 RUN apt-get update
 RUN apt-get upgrade -y
 
-RUN apt-get -y install curl
-RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
+RUN apt-get install -y curl
+RUN apt-get install -y git 
+RUN apt-get install -y build-essential
+RUN apt-get install -y libasound2-dev
+RUN apt-get install -y pkg-config
+RUN apt-get install -y libavahi-compat-libdnssd-dev
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+#RUN rustup component add rustfmt
+#RUN rustup component add clippy
+# DNS-SD
+#RUN apt-get install -y libavahi-compat-libdnssd-dev pkg-config
+
+RUN mkdir -p /app/source
+
+WORKDIR /app/source
+RUN git clone https://github.com/librespot-org/librespot.git
+WORKDIR /app/source/librespot
+
+RUN ls -la
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Check cargo is visible
+RUN cargo --help
+
+RUN cargo build --release --no-default-features --features alsa-backend
+
+#RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
 
 ENV SPOTIFY_USERNAME ""
 ENV SPOTIFY_PASSWORD ""
@@ -39,7 +67,6 @@ ENV PGID ""
 RUN mkdir -p /app/assets
 
 COPY app/assets/pulse-client-template.conf /app/assets/
-
 
 RUN which librespot
 
