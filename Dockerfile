@@ -20,20 +20,15 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libasound2-dev
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libpulse-dev
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libavahi-compat-libdnssd-dev
 
-# NO need to install rust
-#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
 # Check cargo is visible
 RUN cargo --help
 
-#RUN cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend"
 RUN cargo install librespot 
 
 RUN /usr/local/cargo/bin/librespot -h
