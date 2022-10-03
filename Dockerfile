@@ -19,6 +19,8 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 
 RUN apt-get update
 RUN apt-get upgrade -y
+RUN apt-get install -y libasound2
+RUN apt-get install -y alsa-utils
 
 RUN apt-get install -y curl
 RUN apt-get install -y git 
@@ -91,6 +93,8 @@ ENV INITIAL_VOLUME ""
 
 ENV DEVICE_NAME ""
 ENV DEVICE_TYPE ""
+
+ENV DEVICE ""
 
 ENV PUID ""
 ENV PGID ""
