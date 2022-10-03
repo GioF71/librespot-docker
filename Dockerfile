@@ -1,6 +1,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS BUILD
 ARG USE_APT_PROXY
+ARG USE_BRANCH
 
 RUN mkdir -p /app/bin
 RUN mkdir -p /app/conf
@@ -23,6 +24,7 @@ RUN apt-get install -y curl
 RUN apt-get install -y git 
 RUN apt-get install -y build-essential
 RUN apt-get install -y libasound2-dev
+RUN apt-get install -y libpulse-dev
 RUN apt-get install -y pkg-config
 RUN apt-get install -y libavahi-compat-libdnssd-dev
 
@@ -31,7 +33,13 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN mkdir -p /app/source
 
 WORKDIR /app/source
-RUN git clone https://github.com/librespot-org/librespot.git
+RUN if [ -n "${USE_BRANCH}" ]; then \
+	echo "Using branch [$USE_BRANCH]"; \
+	git clone https://github.com/librespot-org/librespot.git --branch $USE_BRANCH; \
+	else \
+	echo "Using default branch"; \
+	git clone https://github.com/librespot-org/librespot.git; \
+	fi
 WORKDIR /app/source/librespot
 
 RUN ls -la
@@ -41,7 +49,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 # Check cargo is visible
 RUN cargo --help
 
-RUN cargo build --release --no-default-features --features alsa-backend
+RUN cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend"
 
 RUN ./target/release/librespot -h
 RUN cp ./target/release/librespot /app/bin/librespot
@@ -68,6 +76,8 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 RUN DEBIAN_FRONTEND=noninteractive \
 	apt-get update && \
 	apt-get upgrade -y && \
+	apt-get install -y pulseaudio --no-install-recommends && \
+	apt-get install -y libasound2 --no-install-recommends && \
 	apt-get autoremove -y && \
 	rm -rf "/var/lib/apt/lists/*"
 
