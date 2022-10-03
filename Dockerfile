@@ -30,29 +30,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libavahi-compat-libdnssd-d
 # NO need to install rust
 #RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-RUN mkdir -p /app/source
-
-WORKDIR /app/source
-RUN if [ -n "${USE_BRANCH}" ]; then \
-	echo "Using branch [$USE_BRANCH]"; \
-	git clone https://github.com/librespot-org/librespot.git --branch $USE_BRANCH; \
-	else \
-	echo "Using default branch"; \
-	git clone https://github.com/librespot-org/librespot.git; \
-	fi
-WORKDIR /app/source/librespot
-
-RUN ls -la
-
-ENV PATH="/root/.cargo/bin:${PATH}"
-
 # Check cargo is visible
 RUN cargo --help
 
-RUN cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend"
+#RUN cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend"
+RUN cargo install librespot 
 
-RUN ./target/release/librespot -h
-RUN cp ./target/release/librespot /app/bin/librespot
+RUN /usr/local/cargo/bin/librespot -h
 
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS RUNNER
@@ -62,7 +46,7 @@ RUN mkdir -p /app/bin
 RUN mkdir -p /app/conf
 RUN mkdir -p /app/doc
 
-COPY --from=BUILD /app/bin/librespot /app/bin/librespot
+COPY --from=BUILD /usr/local/cargo/bin/librespot /app/bin/librespot
 COPY app/conf/01-apt-proxy /app/conf/
 
 RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
