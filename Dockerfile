@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM rust:slim-bullseye AS BUILD
+FROM rust:slim AS BUILD
 ARG USE_APT_PROXY
 ARG USE_BRANCH
 
