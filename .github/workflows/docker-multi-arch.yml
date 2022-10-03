@@ -15,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         base: ["bullseye"]
+        use_branch: ["master", "dev"]
 
     steps:
       - name: Checkout
@@ -42,18 +43,26 @@ jobs:
           image_name=${{secrets.DOCKER_USERNAME}}/librespot
 
           distro_id=${{ matrix.base }}
+          use_branch=${{ matrix.use_branch }}
+
+          latest_distro=bullseye
+          latest_branch=main
+
+          edge_distro=bullseye
+          edge_branch=dev
+
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
             if [ "${ref_name}" = "main" ]; then
               echo "main branch";
-              tags="${image_name}:main-${distro_id}";
+              tags="${image_name}:main-${distro_id}-${use_branch}";
             elif [ "${ref_name}" = "devel" ]; then
               echo "devel branch";
-              tags="${image_name}:devel-${distro_id}"
+              tags="${image_name}:devel-${distro_id}-${use_branch}"
             else
               echo "other branch ["${ref_name}"]";
-              tags="${image_name}:branch-${ref_name}-${distro_id}";
+              tags="${image_name}:branch-${ref_name}-${distro_id}-${use_branch}";
             fi
           elif [ "${ref_type}" = "tag" ]; then
             echo "tag mode";
@@ -64,17 +73,26 @@ jobs:
 
             if [ "${tag_type}" = "release" ]; then
               echo "release tag";
-              tags="$image_name:${distro_id}"
-              tags="$tags,$image_name:${distro_id}-${tag_name}"
+              tags="$image_name:${distro_id}-${use_branch}"
+              tags="$tags,$image_name:${distro_id}-${use_branch}-${tag_name}"
+
+              if [ "${latest_branch}" = ${use_branch} ] && [ "${latest_distro}" = ${distro_id} ]; then
+                tags="$tags,$image_name:latest"
+              fi
+
+              if [ "${edge_branch}" = ${use_branch} ] && [ "${edge_distro}" = ${distro_id} ]; then
+                tags="$tags,$image_name:edge"
+              fi
+
             elif [ "${tag_type}" = "main" ]; then
               echo "main tag";
-              tags="${image_name}:main-${tag_name}-${distro_id}";
+              tags="${image_name}:main-${tag_name}-${distro_id}-${use_branch}";
             elif [ "${tag_type}" = "devel" ]; then
               echo "devel tag";
-              tags="${image_name}:devel-${tag_name}-${distro_id}";
+              tags="${image_name}:devel-${tag_name}-${distro_id}-${use_branch}";
             elif [ "${tag_type}" = "feature" ]; then
               echo "devel tag";
-              tags="${image_name}:feature-${tag_name}-${distro_id}";
+              tags="${image_name}:feature-${tag_name}-${distro_id}-${use_branch}";
             fi
           fi
           echo "Building tags: ["${tags}"]"
@@ -98,6 +116,7 @@ jobs:
           context: .
           build-args: |
             BASE_IMAGE=${{ env.BASE_IMAGE }}
+            USE_BRANCH=${{ env.USE_BRANCH }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           push: true
           tags: ${{ env.RELEASE_TAGS }}
