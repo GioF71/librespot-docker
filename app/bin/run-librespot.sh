@@ -193,6 +193,14 @@ if [ -n "$NORMALISATION_KNEE" ]; then
     CMD_LINE="$CMD_LINE --normalisation-tree $NORMALISATION_KNEE"
 fi
 
+if [ -n "$VOLUME_CTRL" ]; then
+    CMD_LINE="$CMD_LINE --volume-ctrl $VOLUME_CTRL"
+fi
+
+if [ -n "$VOLUME_RANGE" ]; then
+    CMD_LINE="$CMD_LINE --volume-range $VOLUME_RANGE"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then

@@ -91,7 +91,8 @@ NORMALISATION_THRESHOLD||Threshold (dBFS) to prevent clipping. Defaults to -2.0.
 NORMALISATION_ATTACK||Attack time (ms) in which the dynamic limiter is reducing gain. Defaults to 5.
 NORMALISATION_RELEASE||Release or decay time (ms) in which the dynamic limiter is restoring gain. Defaults to 100.
 NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is 1.0.
-
+VOLUME_CTRL||Volume control type cubic, fixed, linear, log. Defaults to log.
+VOLUME_RANGE||Range of the volume control (dB). Default for softvol: 60. For the alsa mixer: what the control supports.
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
 
