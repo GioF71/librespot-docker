@@ -105,6 +105,10 @@ if [ "${ENABLE_SYSTEM_CACHE^^}" = "Y" ]; then
   CMD_LINE="$CMD_LINE --system-cache /data/system-cache"
 fi
 
+if [ -n "$CACHE_SIZE_LIMIT" ]; then
+    CMD_LINE="$CMD_LINE --cache-size-limit $CACHE_SIZE_LIMIT"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then

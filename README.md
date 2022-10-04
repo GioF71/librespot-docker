@@ -61,6 +61,9 @@ DEVICE_NAME||Device name
 DEVICE_TYPE|speaker|Displayed device type: computer, tablet, smartphone, speaker, tv, avr (Audio/Video Receiver), stb (Set-Top Box), audiodongle, gameconsole, castaudio, castvideo, automobile, smartwatch, chromebook, carthing, homething. Defaults to speaker.
 DEVICE||Audio device to use. Use ? to list options if using alsa, portaudio or rodio. Enter the path to the output when using pipe. Defaults to the backend's default.
 FORMAT|S16|Output format: F64, F32, S32, S24, S24_3, S16. Defaults to S16.
+ENABLE_CACHE||Y o y to enable, uses correspondent volume
+ENABLE_SYSTEM_CACHE||Y o y to enable, uses correspondent volume
+CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like K, M or G.
 PUID|1000|For pulseaudio mode. Set the same as the current user id
 PGID|1000|For pulseaudio mode. Set the same as the current group id
 
