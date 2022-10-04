@@ -77,6 +77,7 @@ ALSA_MIXER_CONTROL|PCM|alsa mixer control, e.g. PCM, Master or similar. Defaults
 ALSA_MIXER_DEVICE||alsa mixer device, e.g hw:0 or similar from aplay -l. Defaults to --device if specified, default otherwise.
 ALSA_MIXER_INDEX|0|alsa mixer index, Index of the cards mixer. Defaults to 0.
 QUIET||Only log warning and error messages. Y or y to disable
+VERBOSE||Enable verbose output. Y or y to disable
 PUID|1000|For pulseaudio mode. Set the same as the current user id
 PGID|1000|For pulseaudio mode. Set the same as the current group id
 

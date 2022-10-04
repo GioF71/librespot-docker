@@ -137,6 +137,10 @@ if [ "${QUIET^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --quiet"
 fi
 
+if [ "${VERBOSE^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --verbose"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
