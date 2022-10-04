@@ -97,8 +97,15 @@ if [ -n "$FORMAT" ]; then
     CMD_LINE="$CMD_LINE --format '$FORMAT'"
 fi
 
+if [ "${ENABLE_CACHE^^}" = "Y" ]; then
+  CMD_LINE="$CMD_LINE --cache /data/cache"
+fi 
+
+if [ "${ENABLE_SYSTEM_CACHE^^}" = "Y" ]; then
+  CMD_LINE="$CMD_LINE --system-cache /data/system-cache"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
-#eval $CMD_LINE
 
 if [ "$BACKEND" = "pulseaudio" ]; then
   su - $USER_NAME -c "$CMD_LINE";

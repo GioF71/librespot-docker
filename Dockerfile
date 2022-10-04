@@ -38,8 +38,16 @@ ENV DEVICE_TYPE ""
 ENV DEVICE ""
 ENV FORMAT ""
 
+ENV ENABLE_CACHE ""
+ENV ENABLE_SYSTEM_CACHE ""
+
 ENV PUID ""
 ENV PGID ""
+
+VOLUME /data/cache
+VOLUME /data/system-cache
+
+COPY README.md /app/doc/
 
 RUN mkdir -p /app/assets
 
