@@ -113,6 +113,10 @@ if [ "${DISABLE_AUDIO_CACHE^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --disable-audio-cache"
 fi
 
+if [ "${DISABLE_CREDENTIAL_CACHE^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-credential-cache"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
