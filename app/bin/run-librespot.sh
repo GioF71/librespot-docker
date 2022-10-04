@@ -90,15 +90,130 @@ if [ -n "$DEVICE_TYPE" ]; then
 fi
 
 if [ -n "$DEVICE" ]; then
-    CMD_LINE="$CMD_LINE --device '$DEVICE'"
+    CMD_LINE="$CMD_LINE --device $DEVICE"
 fi
 
 if [ -n "$FORMAT" ]; then
-    CMD_LINE="$CMD_LINE --format '$FORMAT'"
+    CMD_LINE="$CMD_LINE --format $FORMAT"
+fi
+
+if [ "${ENABLE_CACHE^^}" = "Y" ]; then
+  CMD_LINE="$CMD_LINE --cache /data/cache"
+fi 
+
+if [ "${ENABLE_SYSTEM_CACHE^^}" = "Y" ]; then
+  CMD_LINE="$CMD_LINE --system-cache /data/system-cache"
+fi
+
+if [ -n "$CACHE_SIZE_LIMIT" ]; then
+    CMD_LINE="$CMD_LINE --cache-size-limit $CACHE_SIZE_LIMIT"
+fi
+
+if [ "${DISABLE_AUDIO_CACHE^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-audio-cache"
+fi
+
+if [ "${DISABLE_CREDENTIAL_CACHE^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-credential-cache"
+fi
+
+if [ -n "$MIXER" ]; then
+    CMD_LINE="$CMD_LINE --mixer $MIXER"
+fi
+
+if [ -n "$ALSA_MIXER_CONTROL" ]; then
+    CMD_LINE="$CMD_LINE --alsa-mixer-control $ALSA_MIXER_CONTROL"
+fi
+
+if [ -n "$ALSA_MIXER_DEVICE" ]; then
+    CMD_LINE="$CMD_LINE --alsa-mixer-device $ALSA_MIXER_DEVICE"
+fi
+
+if [ -n "$ALSA_MIXER_INDEX" ]; then
+    CMD_LINE="$CMD_LINE --alsa-mixer-index $ALSA_MIXER_INDEX"
+fi
+
+if [ "${QUIET^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --quiet"
+fi
+
+if [ "${VERBOSE^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --verbose"
+fi
+
+if [ -n "$PROXY" ]; then
+    CMD_LINE="$CMD_LINE --proxy $PROXY"
+fi
+
+if [ -n "$AP_PORT" ]; then
+    CMD_LINE="$CMD_LINE --ap-port $AP_PORT"
+fi
+
+if [ "${DISABLE_DISCOVERY^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-discovery"
+fi
+
+if [ -n "$DITHER" ]; then
+    CMD_LINE="$CMD_LINE --dither $DITHER"
+fi
+
+if [ -n "$ZEROCONF_PORT" ]; then
+    CMD_LINE="$CMD_LINE --zeroconf-port $ZEROCONF_PORT"
+fi
+
+if [ "${ENABLE_VOLUME_NORMALISATION^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --enable-volume-normalisation"
+fi
+
+if [ -n "$NORMALISATION_METHOD" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-method $NORMALISATION_METHOD"
+fi
+
+if [ -n "$NORMALISATION_GAIN_TYPE" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-gain-type $NORMALISATION_GAIN_TYPE"
+fi
+
+if [ -n "$NORMALISATION_PREGAIN" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-pre-gain $NORMALISATION_PREGAIN"
+fi
+
+if [ -n "$NORMALISATION_THRESHOLD" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-threshold $NORMALISATION_THRESHOLD"
+fi
+
+if [ -n "$NORMALISATION_ATTACK" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-attack $NORMALISATION_ATTACK"
+fi
+
+if [ -n "$NORMALISATION_RELEASE" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-release $NORMALISATION_RELEASE"
+fi
+
+if [ -n "$NORMALISATION_KNEE" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-tree $NORMALISATION_KNEE"
+fi
+
+if [ -n "$VOLUME_CTRL" ]; then
+    CMD_LINE="$CMD_LINE --volume-ctrl $VOLUME_CTRL"
+fi
+
+if [ -n "$VOLUME_RANGE" ]; then
+    CMD_LINE="$CMD_LINE --volume-range $VOLUME_RANGE"
+fi
+
+if [ "${AUTOPLAY^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --autoplay"
+fi
+
+if [ "${DISABLE_GAPLESS^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-gapless"
+fi
+
+if [ "${PASSTHROUGH^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --passthrough"
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
-#eval $CMD_LINE
 
 if [ "$BACKEND" = "pulseaudio" ]; then
   su - $USER_NAME -c "$CMD_LINE";
