@@ -60,42 +60,42 @@ VARIABLE|DEFAULT|NOTES
 :---|:---|:---
 SPOTIFY_USERNAME||Your Spotify username.
 SPOTIFY_PASSWORD||Your Spotify password.
-BITRATE|160|Bitrate (kbps): 96, 160, 320. Defaults to 160.
-BACKEND|alsa|Audio backend to use. Use ? to list options. Define also the device option when using pipe.
-INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: 50. For the alsa mixer: the current volume.
+BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
+BACKEND|alsa|Audio backend to use. Use `?` to list options. Define also the `device` option when using `pipe`.
+INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
 DEVICE_NAME||Device name.
-DEVICE_TYPE|speaker|Displayed device type: computer, tablet, smartphone, speaker, tv, avr (Audio/Video Receiver), stb (Set-Top Box), audiodongle, gameconsole, castaudio, castvideo, automobile, smartwatch, chromebook, carthing, homething. Defaults to speaker.
-DEVICE||Audio device to use. Use ? to list options if using alsa, portaudio or rodio. Enter the path to the output when using pipe. Defaults to the backend's default.
-FORMAT|S16|Output format: F64, F32, S32, S24, S24_3, S16. Defaults to S16.
-ENABLE_CACHE||Y o y to enable, uses correspondent volume.
-ENABLE_SYSTEM_CACHE||Y o y to enable, uses correspondent volume.
-CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like K, M or G.
-DISABLE_AUDIO_CACHE||Y or y to disable.
-DISABLE_CREDENTIAL_CACHE||Y or y to disable.
-MIXER|softvol|Mixer to use: softvol, alsa. Defaults to softvol.
-ALSA_MIXER_CONTROL|PCM|alsa mixer control, e.g. PCM, Master or similar. Defaults to PCM.
-ALSA_MIXER_DEVICE||alsa mixer device, e.g hw:0 or similar from aplay -l. Defaults to --device if specified, default otherwise.
-ALSA_MIXER_INDEX|0|alsa mixer index, Index of the cards mixer. Defaults to 0.
-QUIET||Only log warning and error messages. Y or y to disable
-VERBOSE||Enable verbose output. Y or y to disable.
-PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form http://ip:port, and can also be passed using the all-lowercase http_proxy environment variable.
-AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually 80, 443 and 4070.
-DISABLE_DISCOVERY||Disable zeroconf discovery mode. Y or y to disable.
+DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`, `homething`. Defaults to `speaker`.
+DEVICE||Audio device to use. Use `?` to list options if using `alsa`, `portaudio` or `rodio`. Enter the path to the output when using `pipe`. Defaults to the backend's default.
+FORMAT|S16|Output format: `F64`, `F32`, `S32`, `S24`, `S24_3`, `S16`. Defaults to `S16`.
+ENABLE_CACHE||Y or y to enable, uses correspondent volume.
+ENABLE_SYSTEM_CACHE||`Y` or `y` to enable, uses correspondent volume.
+CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like `K`, `M` or `G`.
+DISABLE_AUDIO_CACHE||`Y` or `y` to disable.
+DISABLE_CREDENTIAL_CACHE||`Y` or `y` to disable.
+MIXER|softvol|Mixer to use: `softvol`, `alsa`. Defaults to `softvol`.
+ALSA_MIXER_CONTROL|PCM|`alsa` mixer control, e.g. `PCM`, `Master` or similar. Defaults to `PCM`.
+ALSA_MIXER_DEVICE||`alsa` mixer device, e.g `hw:0` or similar from `aplay -l`. Defaults to `--device` if specified, `default` otherwise.
+ALSA_MIXER_INDEX|0|`alsa` mixer index, Index of the cards mixer. Defaults to `0`.
+QUIET||Only log warning and error messages. `Y` or `y` to disable
+VERBOSE||Enable verbose output. `Y` or `y` to disable.
+PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form `http://ip:port`, and can also be passed using the all-lowercase http_proxy environment variable.
+AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually `80`, `443` and `4070`.
+DISABLE_DISCOVERY||Disable zeroconf discovery mode. `Y` or `y` to disable.
 DITHER||Dither algorithm: none, gpdf, tpdf, tpdf_hp. Defaults to tpdf for formats S16, S24, S24_3 and none for other formats.
-ZEROCONF_PORT||The port the internal server advertises over zeroconf: 1 - 65535. Ports <= 1024 may require root privileges.
-ENABLE_VOLUME_NORMALISATION||Enables volume normalisation for librespot. Y or y to enable.
-NORMALISATION_METHOD||Specify the normalisation method to use: basic, dynamic. Defaults to dynamic.
-NORMALISATION_GAIN_TYPE||Specify the normalisation gain type to use: track, album, auto. Defaults to auto.
-NORMALISATION_PREGAIN||Pregain (dB) applied by the normalisation. Defaults to 0.
-NORMALISATION_THRESHOLD||Threshold (dBFS) to prevent clipping. Defaults to -2.0.
-NORMALISATION_ATTACK||Attack time (ms) in which the dynamic limiter is reducing gain. Defaults to 5.
-NORMALISATION_RELEASE||Release or decay time (ms) in which the dynamic limiter is restoring gain. Defaults to 100.
-NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is 1.0.
-VOLUME_CTRL||Volume control type cubic, fixed, linear, log. Defaults to log.
-VOLUME_RANGE||Range of the volume control (dB). Default for softvol: 60. For the alsa mixer: what the control supports.
-AUTOPLAY||Autoplay similar songs when your music ends. Y or y to enable.
-DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. Y or y to enable.
-PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. Y or y to enable.
+ZEROCONF_PORT||The port the internal server advertises over zeroconf: `1` - `65535`. Ports <= `1024` may require root privileges.
+ENABLE_VOLUME_NORMALISATION||Enables volume normalisation for librespot. `Y` or `y` to enable.
+NORMALISATION_METHOD||Specify the normalisation method to use: `basic`, `dynamic`. Defaults to `dynamic`.
+NORMALISATION_GAIN_TYPE||Specify the normalisation gain type to use: `track`, `album`, `auto`. Defaults to `auto`.
+NORMALISATION_PREGAIN||Pregain (dB) applied by the normalisation. Defaults to `0`.
+NORMALISATION_THRESHOLD||Threshold (dBFS) to prevent clipping. Defaults to `-2.0`.
+NORMALISATION_ATTACK||Attack time (ms) in which the dynamic limiter is reducing gain. Defaults to `5`.
+NORMALISATION_RELEASE||Release or decay time (ms) in which the dynamic limiter is restoring gain. Defaults to `100`.
+NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is `1.0`.
+VOLUME_CTRL||Volume control type `cubic`, `fixed`, `linear`, `log`. Defaults to `log`.
+VOLUME_RANGE||Range of the volume control (dB). Default for softvol: `60`. For the `alsa` mixer: what the control supports.
+AUTOPLAY||Autoplay similar songs when your music ends. `Y` or `y` to enable.
+DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. `Y` or `y` to enable.
+PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. `Y` or `y` to enable.
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
 
@@ -105,6 +105,100 @@ Volume|Description
 :---|:---
 /data/cache|Volume for cache, used by --cache
 /data/system-cache|Volume for system-cache, used by --system-cache
+
+### Examples
+
+#### Docker-compose
+
+Using docker-compose is preferable for multiple reason, a notable one is the fact that it avoids a few headaches with password escaping, in case of special characters.  
+
+This `docker-compose.yaml` files hereby presented requires a `.env` file at the same level of the `docker-compose.yaml` file itself. The file should have the following format:
+
+```text
+SPOTIFY_USERNAME=myusername
+SPOTIFY_PASSWORD=mypassword
+```
+
+##### Docker-compose in Alsa mode
+
+```code
+---
+version: "3"
+
+services:
+  librespot-u12:
+    image: giof71/librespot:latest
+    container_name: librespot-u12
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - DEVICE=hw:x20,0
+      - SPOTIFY_USERNAME=${SPOTIFY_USERNAME}
+      - SPOTIFY_PASSWORD=${SPOTIFY_PASSWORD}
+      - BACKEND=alsa
+      - BITRATE=320
+      - INITIAL_VOLUME=100
+      - DEVICE_NAME=gustard-u12
+```
+
+##### Docker-compose in PulseAudio mode
+
+```code
+---
+version: "3"
+
+services:
+  librespot-pulse:
+    image: giof71/librespot:latest
+    container_name: librespot-pulse
+    environment:
+      - SPOTIFY_USERNAME=${SPOTIFY_USERNAME}
+      - SPOTIFY_PASSWORD=${SPOTIFY_PASSWORD}
+      - BACKEND=pulseaudio
+      - BITRATE=320
+      - INITIAL_VOLUME=100
+      - DEVICE_NAME=manjaro-xeon10-pulse
+    volumes:
+      - /run/user/1000/pulse:/run/user/1000/pulse
+```
+
+#### Docker run
+
+##### Docker run in Alsa mode
+
+```code
+docker run -d --name librespot \
+    --device /dev/snd \
+    -e DEVICE_NAME=kodi-living-pi4-tuner \
+    -e INITIAL_VOLUME=100 \
+    -e BACKEND=alsa \
+    -e DEVICE=hw:D10,0 \
+    -e FORMAT=S32 \
+    -e BITRATE=320 \
+    -e INITIAL_VOLUME=100 \
+    -e SPOTIFY_USERNAME=myusername \
+    -e SPOTIFY_PASSWORD=mypassword \
+    --restart unless-stopped \
+    giof71/librespot:latest
+```
+
+Please note that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
+
+##### Docker run in PulseAudio mode
+
+```code
+docker run -d
+    -e PUID=1000 \
+    -e PGID=1000 \
+    -e BACKEND=pulseaudio \
+    -e BITRATE=320 \
+    -e SPOTIFY_USERNAME=myusername \
+    -e SPOTIFY_PASSWORD=mypassword \
+    -e DEVICE_NAME=librespot-pulse \
+    -v /run/user/1000/pulse:/run/user/1000/pulse \
+    --name librespot-pulse \
+    giof71/librespot:latest
+```
 
 ## Known issues
 
@@ -117,7 +211,7 @@ Please note that even in "discovery" mode, the premium account is always require
 
 I am currently relying, as mentioned before, to the Raspotify project to build this image. Of what Raspotify, this container only uses librespot.  
 I have a branch dedicated to this issue: the problem is with the build on GitHub via QEMU, which fails for the armhf architecture.  
-Any help in resolving this issue is welcome. 
+Any help in resolving this issue is welcome.
 
 ## Build
 
