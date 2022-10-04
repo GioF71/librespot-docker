@@ -141,6 +141,14 @@ if [ "${VERBOSE^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --verbose"
 fi
 
+if [ -n "$PROXY" ]; then
+    CMD_LINE="$CMD_LINE --proxy $PROXY"
+fi
+
+if [ -n "$AP_PORT" ]; then
+    CMD_LINE="$CMD_LINE --ap-port $AP_PORT"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then

@@ -78,6 +78,8 @@ ALSA_MIXER_DEVICE||alsa mixer device, e.g hw:0 or similar from aplay -l. Default
 ALSA_MIXER_INDEX|0|alsa mixer index, Index of the cards mixer. Defaults to 0.
 QUIET||Only log warning and error messages. Y or y to disable
 VERBOSE||Enable verbose output. Y or y to disable
+PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form http://ip:port, and can also be passed using the all-lowercase http_proxy environment variable.
+AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually 80, 443 and 4070.
 PUID|1000|For pulseaudio mode. Set the same as the current user id
 PGID|1000|For pulseaudio mode. Set the same as the current group id
 
