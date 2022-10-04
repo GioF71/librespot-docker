@@ -1,4 +1,4 @@
-# librespot-docker - a Docker image for upmpdcli
+# librespot-docker - a Docker image for librespot
 
 ## Reference
 
@@ -44,9 +44,7 @@ Here is the [repository](https://hub.docker.com/repository/docker/giof71/libresp
 
 Getting the image from DockerHub is as simple as typing:
 
-`docker pull giof71/librespot:stable`
-
-You may want to pull the "stable" image as opposed to the "latest".
+`docker pull giof71/librespot:latest`
 
 ### Environment variables
 
