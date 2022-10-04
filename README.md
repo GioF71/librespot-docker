@@ -51,7 +51,7 @@ Getting the image from DockerHub is as simple as typing:
 The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
----|---|---
+:---|:---|:---
 SPOTIFY_USERNAME||Your Spotify username
 SPOTIFY_PASSWORD||Your Spotify password
 BITRATE||Bitrate (kbps): 96, 160, 320. Defaults to 160.
