@@ -71,6 +71,19 @@ PGID||For pulseaudio mode. Set the same as the current group id
 Volume|Description
 :---|:---
 
+## Known issues
+
+### Discovery
+
+I have not (yet?) been able to run the container without having to specify the credentials, thus relaying in service discovery. This is probably due to docker. I have found a few solution to similar problems, but such solutions seem overly complicated, thus I currently prefer to stick with providing the credentials.  
+Please note that even in "discovery" mode, the premium account is always required for playback, but it would only not be required to provide the credentials to the container.
+
+### Dependency on Raspotify
+
+I am currently relying, as mentioned before, to the Raspotify project to build this image. Of what Raspotify, this container only uses librespot.  
+I have a branch dedicated to this issue: the problem is with the build on GitHub via QEMU, which fails for the armhf architecture.  
+Any help in resolving this issue is welcome. 
+
 ## Build
 
 You can build (or rebuild) the image by opening a terminal from the root of the repository and issuing the following command:
