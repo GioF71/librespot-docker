@@ -6,7 +6,7 @@ First and foremost, the reference to the awesome project:
 
 [Librespot](https://github.com/librespot-org/librespot)
 
-I am also currently relying on Raspotify because building images from crates.io fails for armhf platfrom. So here is the reference:
+I am also currently relying on Raspotify because building images from crates.io fails for armhf platfrom. So here is the reference to this other excellent project:
 
 [Raspotify](https://github.com/dtcooper/raspotify)
 
@@ -33,9 +33,10 @@ This command will output one line if the current user does belong to the "docker
 The Dockerfile and the included scripts have been tested on the following distros:
 
 - Manjaro Linux with Gnome (amd64)
-- Raspberry Pi 3/4
+- Raspberry Pi 3/4 (32 bit)
 
 As I test the Dockerfile on more platforms, I will update this list.
+Notably, I have not yet tested on 64 bit Arm, but this is definitely something I will do shortly.
 
 ## Get the image
 
