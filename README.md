@@ -68,6 +68,8 @@ PGID||For pulseaudio mode. Set the same as the current group id
 
 Volume|Description
 :---|:---
+/data/cache|Volume for cache, used by --cache
+/data/system-cache|Volume for system-cache, used by --system-cache
 
 ## Known issues
 
