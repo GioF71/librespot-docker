@@ -201,6 +201,18 @@ if [ -n "$VOLUME_RANGE" ]; then
     CMD_LINE="$CMD_LINE --volume-range $VOLUME_RANGE"
 fi
 
+if [ "${AUTOPLAY^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --autoplay"
+fi
+
+if [ "${DISABLE_GAPLESS^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-gapless"
+fi
+
+if [ "${PASSTHROUGH^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --passthrough"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then

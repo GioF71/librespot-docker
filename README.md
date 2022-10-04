@@ -93,6 +93,9 @@ NORMALISATION_RELEASE||Release or decay time (ms) in which the dynamic limiter i
 NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is 1.0.
 VOLUME_CTRL||Volume control type cubic, fixed, linear, log. Defaults to log.
 VOLUME_RANGE||Range of the volume control (dB). Default for softvol: 60. For the alsa mixer: what the control supports.
+AUTOPLAY||Autoplay similar songs when your music ends. Y or y to enable.
+DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. Y or y to enable.
+PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. Y or y to enable.
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
 
