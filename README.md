@@ -97,5 +97,6 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2022-10-04|Documentation enrichment and cleanup
 2022-10-04|Support for cache and system-cache
 2022-10-04|Initial Releasse
