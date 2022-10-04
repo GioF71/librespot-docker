@@ -53,6 +53,17 @@ The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
 ---|---|---
+SPOTIFY_USERNAME||Your Spotify username
+SPOTIFY_PASSWORD||Your Spotify password
+BITRATE||Bitrate (kbps): 96, 160, 320. Defaults to 160.
+BACKEND||Audio backend to use. Use ? to list options. Define also the device option when using pipe
+INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: 50. For the alsa mixer: the current volume.
+DEVICE_NAME||Device name
+DEVICE_TYPE||Displayed device type: computer, tablet, smartphone, speaker, tv, avr (Audio/Video Receiver), stb (Set-Top Box), audiodongle, gameconsole, castaudio, castvideo, automobile, smartwatch, chromebook, carthing, homething. Defaults to speaker.
+DEVICE||Audio device to use. Use ? to list options if using alsa, portaudio or rodio. Enter the path to the output when using pipe. Defaults to the backend's default.
+FORMAT||Output format: F64, F32, S32, S24, S24_3, S16. Defaults to S16.
+PUID||For pulseaudio mode. Set the same as the current user id
+PGID||For pulseaudio mode. Set the same as the current group id
 
 ### Volumes
 
