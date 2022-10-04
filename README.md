@@ -82,6 +82,7 @@ PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form 
 AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually 80, 443 and 4070.
 DISABLE_DISCOVERY||Disable zeroconf discovery mode. Y or y to disable.
 DITHER||Dither algorithm: none, gpdf, tpdf, tpdf_hp. Defaults to tpdf for formats S16, S24, S24_3 and none for other formats.
+ZEROCONF_PORT||The port the internal server advertises over zeroconf: 1 - 65535. Ports <= 1024 may require root privileges.
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
 

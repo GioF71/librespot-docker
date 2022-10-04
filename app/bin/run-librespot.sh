@@ -157,6 +157,10 @@ if [ -n "$DITHER" ]; then
     CMD_LINE="$CMD_LINE --dither $DITHER"
 fi
 
+if [ -n "$ZEROCONF_PORT" ]; then
+    CMD_LINE="$CMD_LINE --zeroconf-port $ZEROCONF_PORT"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
