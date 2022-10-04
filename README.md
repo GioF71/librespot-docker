@@ -46,28 +46,65 @@ Getting the image from DockerHub is as simple as typing:
 
 `docker pull giof71/librespot:latest`
 
+## Librespot is gapless
+
+Mr. [John Darko](https://darko.audio/) would be proud.
+
+## Configuration
+
 ### Environment variables
 
 The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
----|---|---
-SPOTIFY_USERNAME||Your Spotify username
-SPOTIFY_PASSWORD||Your Spotify password
-BITRATE||Bitrate (kbps): 96, 160, 320. Defaults to 160.
-BACKEND||Audio backend to use. Use ? to list options. Define also the device option when using pipe
+:---|:---|:---
+SPOTIFY_USERNAME||Your Spotify username.
+SPOTIFY_PASSWORD||Your Spotify password.
+BITRATE|160|Bitrate (kbps): 96, 160, 320. Defaults to 160.
+BACKEND|alsa|Audio backend to use. Use ? to list options. Define also the device option when using pipe.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: 50. For the alsa mixer: the current volume.
-DEVICE_NAME||Device name
-DEVICE_TYPE||Displayed device type: computer, tablet, smartphone, speaker, tv, avr (Audio/Video Receiver), stb (Set-Top Box), audiodongle, gameconsole, castaudio, castvideo, automobile, smartwatch, chromebook, carthing, homething. Defaults to speaker.
+DEVICE_NAME||Device name.
+DEVICE_TYPE|speaker|Displayed device type: computer, tablet, smartphone, speaker, tv, avr (Audio/Video Receiver), stb (Set-Top Box), audiodongle, gameconsole, castaudio, castvideo, automobile, smartwatch, chromebook, carthing, homething. Defaults to speaker.
 DEVICE||Audio device to use. Use ? to list options if using alsa, portaudio or rodio. Enter the path to the output when using pipe. Defaults to the backend's default.
-FORMAT||Output format: F64, F32, S32, S24, S24_3, S16. Defaults to S16.
-PUID||For pulseaudio mode. Set the same as the current user id
-PGID||For pulseaudio mode. Set the same as the current group id
+FORMAT|S16|Output format: F64, F32, S32, S24, S24_3, S16. Defaults to S16.
+ENABLE_CACHE||Y o y to enable, uses correspondent volume.
+ENABLE_SYSTEM_CACHE||Y o y to enable, uses correspondent volume.
+CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like K, M or G.
+DISABLE_AUDIO_CACHE||Y or y to disable.
+DISABLE_CREDENTIAL_CACHE||Y or y to disable.
+MIXER|softvol|Mixer to use: softvol, alsa. Defaults to softvol.
+ALSA_MIXER_CONTROL|PCM|alsa mixer control, e.g. PCM, Master or similar. Defaults to PCM.
+ALSA_MIXER_DEVICE||alsa mixer device, e.g hw:0 or similar from aplay -l. Defaults to --device if specified, default otherwise.
+ALSA_MIXER_INDEX|0|alsa mixer index, Index of the cards mixer. Defaults to 0.
+QUIET||Only log warning and error messages. Y or y to disable
+VERBOSE||Enable verbose output. Y or y to disable.
+PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form http://ip:port, and can also be passed using the all-lowercase http_proxy environment variable.
+AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually 80, 443 and 4070.
+DISABLE_DISCOVERY||Disable zeroconf discovery mode. Y or y to disable.
+DITHER||Dither algorithm: none, gpdf, tpdf, tpdf_hp. Defaults to tpdf for formats S16, S24, S24_3 and none for other formats.
+ZEROCONF_PORT||The port the internal server advertises over zeroconf: 1 - 65535. Ports <= 1024 may require root privileges.
+ENABLE_VOLUME_NORMALISATION||Enables volume normalisation for librespot. Y or y to enable.
+NORMALISATION_METHOD||Specify the normalisation method to use: basic, dynamic. Defaults to dynamic.
+NORMALISATION_GAIN_TYPE||Specify the normalisation gain type to use: track, album, auto. Defaults to auto.
+NORMALISATION_PREGAIN||Pregain (dB) applied by the normalisation. Defaults to 0.
+NORMALISATION_THRESHOLD||Threshold (dBFS) to prevent clipping. Defaults to -2.0.
+NORMALISATION_ATTACK||Attack time (ms) in which the dynamic limiter is reducing gain. Defaults to 5.
+NORMALISATION_RELEASE||Release or decay time (ms) in which the dynamic limiter is restoring gain. Defaults to 100.
+NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is 1.0.
+VOLUME_CTRL||Volume control type cubic, fixed, linear, log. Defaults to log.
+VOLUME_RANGE||Range of the volume control (dB). Default for softvol: 60. For the alsa mixer: what the control supports.
+AUTOPLAY||Autoplay similar songs when your music ends. Y or y to enable.
+DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. Y or y to enable.
+PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. Y or y to enable.
+PUID|1000|For pulseaudio mode. Set the same as the current user id.
+PGID|1000|For pulseaudio mode. Set the same as the current group id.
 
 ### Volumes
 
 Volume|Description
 :---|:---
+/data/cache|Volume for cache, used by --cache
+/data/system-cache|Volume for system-cache, used by --system-cache
 
 ## Known issues
 
@@ -95,3 +132,6 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2022-10-04|Documentation enrichment and cleanup
+2022-10-04|Support for cache and system-cache
+2022-10-04|Initial Releasse
