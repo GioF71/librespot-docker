@@ -133,6 +133,10 @@ if [ -n "$ALSA_MIXER_INDEX" ]; then
     CMD_LINE="$CMD_LINE --alsa-mixer-index $ALSA_MIXER_INDEX"
 fi
 
+if [ "${QUIET^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --quiet"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
