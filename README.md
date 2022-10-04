@@ -46,9 +46,11 @@ Getting the image from DockerHub is as simple as typing:
 
 `docker pull giof71/librespot:latest`
 
-### Librespot is gapless
+## Librespot is gapless
 
 Mr. [John Darko](https://darko.audio/) would be proud.
+
+## Configuration
 
 ### Environment variables
 
