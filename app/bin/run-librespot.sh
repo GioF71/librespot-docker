@@ -109,6 +109,10 @@ if [ -n "$CACHE_SIZE_LIMIT" ]; then
     CMD_LINE="$CMD_LINE --cache-size-limit $CACHE_SIZE_LIMIT"
 fi
 
+if [ "${DISABLE_AUDIO_CACHE^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-audio-cache"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
