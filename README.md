@@ -12,7 +12,7 @@ I am also currently relying on Raspotify because building images from crates.io 
 
 ## Links
 
-Source: [GitHub](https://github.com/giof71/librepot-docker)  
+Source: [GitHub](https://github.com/giof71/librespot-docker)  
 Images: [DockerHub](https://hub.docker.com/r/giof71/librespot)
 
 ## Why
