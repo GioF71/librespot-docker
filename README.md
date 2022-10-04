@@ -66,6 +66,10 @@ ENABLE_SYSTEM_CACHE||Y o y to enable, uses correspondent volume
 CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like K, M or G.
 DISABLE_AUDIO_CACHE||Y o y to disable
 DISABLE_CREDENTIAL_CACHE||Y o y to disable
+MIXER|softvol|Mixer to use: softvol, alsa. Defaults to softvol.
+ALSA_MIXER_CONTROL|PCM|alsa mixer control, e.g. PCM, Master or similar. Defaults to PCM.
+ALSA_MIXER_DEVICE||alsa mixer device, e.g hw:0 or similar from aplay -l. Defaults to --device if specified, default otherwise.
+ALSA_MIXER_INDEX|0|alsa mixer index, Index of the cards mixer. Defaults to 0.
 PUID|1000|For pulseaudio mode. Set the same as the current user id
 PGID|1000|For pulseaudio mode. Set the same as the current group id
 

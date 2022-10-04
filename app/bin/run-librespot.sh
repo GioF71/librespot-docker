@@ -117,6 +117,22 @@ if [ "${DISABLE_CREDENTIAL_CACHE^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --disable-credential-cache"
 fi
 
+if [ -n "$MIXER" ]; then
+    CMD_LINE="$CMD_LINE --mixer $MIXER"
+fi
+
+if [ -n "$ALSA_MIXER_CONTROL" ]; then
+    CMD_LINE="$CMD_LINE --alsa-mixer-control $ALSA_MIXER_CONTROL"
+fi
+
+if [ -n "$ALSA_MIXER_DEVICE" ]; then
+    CMD_LINE="$CMD_LINE --alsa-mixer-device $ALSA_MIXER_DEVICE"
+fi
+
+if [ -n "$ALSA_MIXER_INDEX" ]; then
+    CMD_LINE="$CMD_LINE --alsa-mixer-index $ALSA_MIXER_INDEX"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
