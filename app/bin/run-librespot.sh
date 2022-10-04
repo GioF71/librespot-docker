@@ -149,6 +149,10 @@ if [ -n "$AP_PORT" ]; then
     CMD_LINE="$CMD_LINE --ap-port $AP_PORT"
 fi
 
+if [ "${DISABLE_DISCOVERY^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --disable-discovery"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then

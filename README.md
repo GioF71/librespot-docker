@@ -58,30 +58,31 @@ The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
 :---|:---|:---
-SPOTIFY_USERNAME||Your Spotify username
-SPOTIFY_PASSWORD||Your Spotify password
+SPOTIFY_USERNAME||Your Spotify username.
+SPOTIFY_PASSWORD||Your Spotify password.
 BITRATE|160|Bitrate (kbps): 96, 160, 320. Defaults to 160.
-BACKEND|alsa|Audio backend to use. Use ? to list options. Define also the device option when using pipe
+BACKEND|alsa|Audio backend to use. Use ? to list options. Define also the device option when using pipe.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: 50. For the alsa mixer: the current volume.
-DEVICE_NAME||Device name
+DEVICE_NAME||Device name.
 DEVICE_TYPE|speaker|Displayed device type: computer, tablet, smartphone, speaker, tv, avr (Audio/Video Receiver), stb (Set-Top Box), audiodongle, gameconsole, castaudio, castvideo, automobile, smartwatch, chromebook, carthing, homething. Defaults to speaker.
 DEVICE||Audio device to use. Use ? to list options if using alsa, portaudio or rodio. Enter the path to the output when using pipe. Defaults to the backend's default.
 FORMAT|S16|Output format: F64, F32, S32, S24, S24_3, S16. Defaults to S16.
-ENABLE_CACHE||Y o y to enable, uses correspondent volume
-ENABLE_SYSTEM_CACHE||Y o y to enable, uses correspondent volume
+ENABLE_CACHE||Y o y to enable, uses correspondent volume.
+ENABLE_SYSTEM_CACHE||Y o y to enable, uses correspondent volume.
 CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like K, M or G.
-DISABLE_AUDIO_CACHE||Y or y to disable
-DISABLE_CREDENTIAL_CACHE||Y or y to disable
+DISABLE_AUDIO_CACHE||Y or y to disable.
+DISABLE_CREDENTIAL_CACHE||Y or y to disable.
 MIXER|softvol|Mixer to use: softvol, alsa. Defaults to softvol.
 ALSA_MIXER_CONTROL|PCM|alsa mixer control, e.g. PCM, Master or similar. Defaults to PCM.
 ALSA_MIXER_DEVICE||alsa mixer device, e.g hw:0 or similar from aplay -l. Defaults to --device if specified, default otherwise.
 ALSA_MIXER_INDEX|0|alsa mixer index, Index of the cards mixer. Defaults to 0.
 QUIET||Only log warning and error messages. Y or y to disable
-VERBOSE||Enable verbose output. Y or y to disable
+VERBOSE||Enable verbose output. Y or y to disable.
 PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form http://ip:port, and can also be passed using the all-lowercase http_proxy environment variable.
 AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually 80, 443 and 4070.
-PUID|1000|For pulseaudio mode. Set the same as the current user id
-PGID|1000|For pulseaudio mode. Set the same as the current group id
+DISABLE_DISCOVERY||Disable zeroconf discovery mode. Y or y to disable.
+PUID|1000|For pulseaudio mode. Set the same as the current user id.
+PGID|1000|For pulseaudio mode. Set the same as the current group id.
 
 ### Volumes
 
