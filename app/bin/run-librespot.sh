@@ -153,6 +153,10 @@ if [ "${DISABLE_DISCOVERY^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --disable-discovery"
 fi
 
+if [ -n "$DITHER" ]; then
+    CMD_LINE="$CMD_LINE --dither $DITHER"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
