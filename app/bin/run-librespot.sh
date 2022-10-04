@@ -93,6 +93,10 @@ if [ -n "$DEVICE" ]; then
     CMD_LINE="$CMD_LINE --device '$DEVICE'"
 fi
 
+if [ -n "$FORMAT" ]; then
+    CMD_LINE="$CMD_LINE --format '$FORMAT'"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 #eval $CMD_LINE
 
