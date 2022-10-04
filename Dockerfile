@@ -45,7 +45,6 @@ RUN mkdir -p /app/assets
 
 COPY app/assets/pulse-client-template.conf /app/assets/
 
-
 RUN which librespot
 
 COPY app/bin/run-librespot.sh /app/bin/
