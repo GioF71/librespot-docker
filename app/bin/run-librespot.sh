@@ -90,11 +90,11 @@ if [ -n "$DEVICE_TYPE" ]; then
 fi
 
 if [ -n "$DEVICE" ]; then
-    CMD_LINE="$CMD_LINE --device '$DEVICE'"
+    CMD_LINE="$CMD_LINE --device $DEVICE"
 fi
 
 if [ -n "$FORMAT" ]; then
-    CMD_LINE="$CMD_LINE --format '$FORMAT'"
+    CMD_LINE="$CMD_LINE --format $FORMAT"
 fi
 
 if [ "${ENABLE_CACHE^^}" = "Y" ]; then
