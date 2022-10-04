@@ -83,6 +83,15 @@ AP_PORT||Connect to an AP with a specified port. If no AP with that port is pres
 DISABLE_DISCOVERY||Disable zeroconf discovery mode. Y or y to disable.
 DITHER||Dither algorithm: none, gpdf, tpdf, tpdf_hp. Defaults to tpdf for formats S16, S24, S24_3 and none for other formats.
 ZEROCONF_PORT||The port the internal server advertises over zeroconf: 1 - 65535. Ports <= 1024 may require root privileges.
+ENABLE_VOLUME_NORMALISATION||Enables volume normalisation for librespot. Y or y to enable.
+NORMALISATION_METHOD||Specify the normalisation method to use: basic, dynamic. Defaults to dynamic.
+NORMALISATION_GAIN_TYPE||Specify the normalisation gain type to use: track, album, auto. Defaults to auto.
+NORMALISATION_PREGAIN||Pregain (dB) applied by the normalisation. Defaults to 0.
+NORMALISATION_THRESHOLD||Threshold (dBFS) to prevent clipping. Defaults to -2.0.
+NORMALISATION_ATTACK||Attack time (ms) in which the dynamic limiter is reducing gain. Defaults to 5.
+NORMALISATION_RELEASE||Release or decay time (ms) in which the dynamic limiter is restoring gain. Defaults to 100.
+NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is 1.0.
+
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
 

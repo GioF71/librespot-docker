@@ -161,6 +161,38 @@ if [ -n "$ZEROCONF_PORT" ]; then
     CMD_LINE="$CMD_LINE --zeroconf-port $ZEROCONF_PORT"
 fi
 
+if [ "${ENABLE_VOLUME_NORMALISATION^^}" = "Y" ]; then
+    CMD_LINE="$CMD_LINE --enable-volume-normalisation"
+fi
+
+if [ -n "$NORMALISATION_METHOD" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-method $NORMALISATION_METHOD"
+fi
+
+if [ -n "$NORMALISATION_GAIN_TYPE" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-gain-type $NORMALISATION_GAIN_TYPE"
+fi
+
+if [ -n "$NORMALISATION_PREGAIN" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-pre-gain $NORMALISATION_PREGAIN"
+fi
+
+if [ -n "$NORMALISATION_THRESHOLD" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-threshold $NORMALISATION_THRESHOLD"
+fi
+
+if [ -n "$NORMALISATION_ATTACK" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-attack $NORMALISATION_ATTACK"
+fi
+
+if [ -n "$NORMALISATION_RELEASE" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-release $NORMALISATION_RELEASE"
+fi
+
+if [ -n "$NORMALISATION_KNEE" ]; then
+    CMD_LINE="$CMD_LINE --normalisation-tree $NORMALISATION_KNEE"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 
 if [ "$BACKEND" = "pulseaudio" ]; then
