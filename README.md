@@ -200,6 +200,24 @@ docker run -d
     giof71/librespot:latest
 ```
 
+### Run as a user-level systemd
+
+When using a desktop system with PulseAudio, running a docker-compose with a `restart=unless-stopped` is likely to cause issues to the entire PulseAudio. At least that is what is systematically happening to me on my desktop systems.  
+You might want to create a user-level systemd unit. In order to do that, move to the `pulse` directory of this repo, create a valid `envfile.txt` with your credentials using `envfile-sample.txt` as a template, then run the following to install the service:
+
+```code
+./install.sh
+```
+
+After that, the service can be controlled using `./start.sh`, `./stop.sh`, `./restart.sh`.  
+You can completely uninstall the service by running:
+
+```code
+./uninstall.sh`
+```
+
+Of course, you might simply want run the Spotify binary client or the web player instead of this ervice, but this alternative will allow you to control the player on your desktop system from e.g. a smartphone or any Spotify client. And it will consume significantly less resources.  
+
 ## Known issues
 
 ### Discovery
@@ -226,6 +244,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2022-10-08|PulseAudio user-level systemd service introduced
 2022-10-04|Feature complete (2022-10-04.1)
 2022-10-04|Documentation enrichment and cleanup
 2022-10-04|Support for cache and system-cache

@@ -1,0 +1,35 @@
+[Unit]
+Description=Librespot Pulse
+After=network.target network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop librespot-pulse
+ExecStartPre=-/usr/bin/docker rm librespot-pulse
+ExecStartPre=-/usr/bin/docker network create librespot-pulse
+ExecStartPre=-/usr/bin/docker pull giof71/librespot:latest
+
+#            -e SPOTIFY_USERNAME=giovanni.fulco@yahoo.com \
+#            -e SPOTIFY_PASSWORD=LcxHQhX$$2Ng%%%%XK3 \
+
+ExecStart=/usr/bin/docker run -i \
+            --network=librespot-pulse \
+            -e PUID=%U \
+            -e PGID=%G \
+            -e BACKEND=pulseaudio \
+            -e DEVICE_NAME="%H-pulse" \
+            -e BITRATE=320 \
+            -v /run/user/%U/pulse:/run/user/%U/pulse \
+            --name librespot-pulse \
+            --env-file=%h/.config/librespot-pulse/envfile.txt \
+            --label com.centurylinklabs.watchtower.enable=false \
+            giof71/librespot:latest
+
+ExecStop=-/usr/bin/docker stop librespot-pulse
+ExecStop=-/usr/bin/docker rm librespot-pulse
+ExecStop=-/usr/bin/docker network rm librespot-pulse
+
+[Install]
+WantedBy=default.target
+

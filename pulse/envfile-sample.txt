@@ -1,0 +1,2 @@
+SPOTIFY_USERNAME=username
+SPOTIFY_PASSWORD=password
