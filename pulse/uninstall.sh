@@ -28,7 +28,6 @@ env_file_to_remove=$LIBRESPOT_PULSE_CONFIG_DIR/$LIBRESPOT_PULSE_ENV_FILE
 if [ -f $env_file_to_remove ]; then
     echo "removing $env_file_to_remove"
     rm $env_file_to_remove
- 
     rm -d $LIBRESPOT_PULSE_CONFIG_DIR/
 fi
 
