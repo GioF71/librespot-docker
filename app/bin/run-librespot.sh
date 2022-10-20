@@ -62,7 +62,7 @@ cat $PULSE_CLIENT_CONF
 
 
 if [ -n "$SPOTIFY_USERNAME" ]; then
-    CMD_LINE="$CMD_LINE --username $SPOTIFY_USERNAME"
+    CMD_LINE="$CMD_LINE --username '$SPOTIFY_USERNAME'"
 fi
 
 if [ -n "$SPOTIFY_PASSWORD" ]; then
@@ -122,11 +122,11 @@ if [ -n "$MIXER" ]; then
 fi
 
 if [ -n "$ALSA_MIXER_CONTROL" ]; then
-    CMD_LINE="$CMD_LINE --alsa-mixer-control $ALSA_MIXER_CONTROL"
+    CMD_LINE="$CMD_LINE --alsa-mixer-control '$ALSA_MIXER_CONTROL'"
 fi
 
 if [ -n "$ALSA_MIXER_DEVICE" ]; then
-    CMD_LINE="$CMD_LINE --alsa-mixer-device $ALSA_MIXER_DEVICE"
+    CMD_LINE="$CMD_LINE --alsa-mixer-device '$ALSA_MIXER_DEVICE'"
 fi
 
 if [ -n "$ALSA_MIXER_INDEX" ]; then
