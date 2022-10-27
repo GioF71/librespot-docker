@@ -1,4 +1,6 @@
-# librespot-docker - a Docker image for librespot
+# librespot-docker
+
+A Docker image for librespot
 
 ## Reference
 
