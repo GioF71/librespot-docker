@@ -244,6 +244,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2022-10-27|Updated github action versions
 2022-10-20|Quotes on a few environment variables
 2022-10-08|PulseAudio user-level systemd service introduced
 2022-10-04|Feature complete (2022-10-04.1)
