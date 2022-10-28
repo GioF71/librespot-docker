@@ -78,11 +78,11 @@ MIXER|softvol|Mixer to use: `softvol`, `alsa`. Defaults to `softvol`.
 ALSA_MIXER_CONTROL|PCM|`alsa` mixer control, e.g. `PCM`, `Master` or similar. Defaults to `PCM`.
 ALSA_MIXER_DEVICE||`alsa` mixer device, e.g `hw:0` or similar from `aplay -l`. Defaults to `--device` if specified, `default` otherwise.
 ALSA_MIXER_INDEX|0|`alsa` mixer index, Index of the cards mixer. Defaults to `0`.
-QUIET||Only log warning and error messages. `Y` or `y` to disable
-VERBOSE||Enable verbose output. `Y` or `y` to disable.
+QUIET||Only log warning and error messages. `Y` or `y` to enable
+VERBOSE||Enable verbose output. `Y` or `y` to enable.
 PROXY||Use a proxy for HTTP requests. Proxy should be an HTTP proxy in the form `http://ip:port`, and can also be passed using the all-lowercase http_proxy environment variable.
 AP_PORT||Connect to an AP with a specified port. If no AP with that port is present a fallback AP will be used. Available ports are usually `80`, `443` and `4070`.
-DISABLE_DISCOVERY||Disable zeroconf discovery mode. `Y` or `y` to disable.
+DISABLE_DISCOVERY||Disable zeroconf discovery mode. `Y` or `y` to disable discovery.
 DITHER||Dither algorithm: none, gpdf, tpdf, tpdf_hp. Defaults to tpdf for formats S16, S24, S24_3 and none for other formats.
 ZEROCONF_PORT||The port the internal server advertises over zeroconf: `1` - `65535`. Ports <= `1024` may require root privileges.
 ENABLE_VOLUME_NORMALISATION||Enables volume normalisation for librespot. `Y` or `y` to enable.
@@ -96,10 +96,12 @@ NORMALISATION_KNEE||Knee steepness of the dynamic limiter. Default is `1.0`.
 VOLUME_CTRL||Volume control type `cubic`, `fixed`, `linear`, `log`. Defaults to `log`.
 VOLUME_RANGE||Range of the volume control (dB). Default for softvol: `60`. For the `alsa` mixer: what the control supports.
 AUTOPLAY||Autoplay similar songs when your music ends. `Y` or `y` to enable.
-DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. `Y` or `y` to enable.
+DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. `Y` or `y` to disable gapless mode.
 PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. `Y` or `y` to enable.
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
+PARAMETER_PRIORITY||Where to look for a parameter first: `env` or `file`. For example, the `credentials.txt` file compared to `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` environment variables. Defaults to `file`, meaning that each file is considered if it exists and if it contains the required values.
+LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
 
 ### Volumes
 
@@ -107,6 +109,7 @@ Volume|Description
 :---|:---
 /data/cache|Volume for cache, used by --cache
 /data/system-cache|Volume for system-cache, used by --system-cache
+/user/config|Volume for user-provided configuration. Might contain a `credentials.txt` file.
 
 ### Examples
 
@@ -246,6 +249,9 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2022-10-28|Credentials are not exposed with the command line output
+2022-10-28|Enabled reading credentials from file
+2022-10-28|Allowed configurability over command line being logged
 2022-10-27|Updated github action versions
 2022-10-20|Quotes on a few environment variables
 2022-10-08|PulseAudio user-level systemd service introduced

@@ -1,0 +1,9 @@
+# Credentials file
+p1=v1
+p2=v2
+SPOTIFY_USERNAME=clarabella_file
+SPOTIFY_PASSWORD1=orazio_file_1
+SPOTIFY_PASSWORD2=orazio_file_2
+
+SPOTIFY_PASSWORD4=orazio_file_4
+
