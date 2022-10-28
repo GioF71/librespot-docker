@@ -83,6 +83,7 @@ ENV PUID ""
 ENV PGID ""
 
 ENV PARAMETER_PRIORITY ""
+ENV LOG_COMMAND_LINE ""
 
 VOLUME /data/cache
 VOLUME /data/system-cache

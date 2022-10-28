@@ -12,9 +12,6 @@ if [ -f "$CREDENTIALS_FILE" ]; then
     read_file $CREDENTIALS_FILE
     SPOTIFY_USERNAME=$(get_value "SPOTIFY_USERNAME" $PARAMETER_PRIORITY)
     SPOTIFY_PASSWORD=$(get_value "SPOTIFY_PASSWORD" $PARAMETER_PRIORITY)
-
-    echo "SPOTIFY_USERNAME=[$SPOTIFY_USERNAME]"
-    echo "SPOTIFY_PASSWORD=[$SPOTIFY_PASSWORD]"
 fi
 
 CMD_LINE="/usr/bin/librespot"
@@ -228,7 +225,19 @@ if [ "${PASSTHROUGH^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --passthrough"
 fi
 
-echo "Command Line: ["$CMD_LINE"]"
+if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
+    ur=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_USERNAME}))
+    pr=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_PASSWORD}))
+    some_asterisks=$(printf '*%.0s' $(seq 1 16))
+
+    safe=$CMD_LINE
+    safe=$(echo "${safe/"$SPOTIFY_USERNAME"/"$some_asterisks"}")
+    safe=$(echo "${safe/"$SPOTIFY_PASSWORD"/"$some_asterisks"}")
+    echo "Command Line: [$safe]"
+
+    #echo "Command Line: ["$CMD_LINE"]"
+
+fi
 
 if [ "$BACKEND" = "pulseaudio" ]; then
   su - $USER_NAME -c "$CMD_LINE";

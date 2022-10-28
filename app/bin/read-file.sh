@@ -5,9 +5,9 @@ credentials_file="sample.txt"
 
 read_file() {
     SELECT_FILE=$1
-    TD=$2
+    echo "Reading file $SELECT_FILE"
     while read line; do
-        echo "line: [$line]"
+        #echo "line: [$line]"
         [[ $line = *=* ]] && file_dict[${line%%=*}]=${line#*=}
     done < $SELECT_FILE
 }
