@@ -100,6 +100,7 @@ DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between 
 PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. `Y` or `y` to enable.
 PUID|1000|For pulseaudio mode. Set the same as the current user id.
 PGID|1000|For pulseaudio mode. Set the same as the current group id.
+PARAMETER_PRIORITY||Where to look for a parameter first: `env` or `file`. For example, the `credentials.txt` file compared to `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` environment variables. Defaults to `file`, meaning that each file is considered if it exists and if it contains the required values.
 
 ### Volumes
 
@@ -107,6 +108,7 @@ Volume|Description
 :---|:---
 /data/cache|Volume for cache, used by --cache
 /data/system-cache|Volume for system-cache, used by --system-cache
+/user/config|Volume for user-provided configuration. Might contain a `credentials.txt` file.
 
 ### Examples
 

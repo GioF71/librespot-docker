@@ -82,8 +82,11 @@ ENV PASSTHROUGH ""
 ENV PUID ""
 ENV PGID ""
 
+ENV PARAMETER_PRIORITY ""
+
 VOLUME /data/cache
 VOLUME /data/system-cache
+VOLUME /user/config
 
 COPY README.md /app/doc/
 
@@ -94,7 +97,10 @@ COPY app/assets/pulse-client-template.conf /app/assets/
 RUN which librespot
 
 COPY app/bin/run-librespot.sh /app/bin/
-RUN chmod u+x /app/bin/run-librespot.sh
+COPY app/bin/read-file.sh /app/bin/
+COPY app/bin/get-value.sh /app/bin/
+
+RUN chmod u+x /app/bin/*.sh
 
 WORKDIR /app/bin
 ENTRYPOINT ["/app/bin/run-librespot.sh"]

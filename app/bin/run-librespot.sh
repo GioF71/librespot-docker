@@ -2,6 +2,21 @@
 
 DEFAULT_STARTUP_DELAY_SEC=0
 
+declare -A file_dict
+
+source read-file.sh
+source get-value.sh
+
+CREDENTIALS_FILE=/user/config/credentials.txt
+if [ -f "$CREDENTIALS_FILE" ]; then
+    read_file $CREDENTIALS_FILE
+    SPOTIFY_USERNAME=$(get_value "SPOTIFY_USERNAME" $PARAMETER_PRIORITY)
+    SPOTIFY_PASSWORD=$(get_value "SPOTIFY_PASSWORD" $PARAMETER_PRIORITY)
+
+    echo "SPOTIFY_USERNAME=[$SPOTIFY_USERNAME]"
+    echo "SPOTIFY_PASSWORD=[$SPOTIFY_PASSWORD]"
+fi
+
 CMD_LINE="/usr/bin/librespot"
 
 DEFAULT_UID=1000
