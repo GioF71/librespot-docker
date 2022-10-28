@@ -35,10 +35,9 @@ This command will output one line if the current user does belong to the "docker
 The Dockerfile and the included scripts have been tested on the following distros:
 
 - Manjaro Linux with Gnome (amd64)
-- Raspberry Pi 3/4 (32 bit)
+- Raspberry Pi 3/4 (32 and 64 bit)
 
 As I test the Dockerfile on more platforms, I will update this list.
-Notably, I have not yet tested on 64 bit Arm, but this is definitely something I will do shortly.
 
 ## Get the image
 
@@ -107,8 +106,8 @@ LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults 
 
 Volume|Description
 :---|:---
-/data/cache|Volume for cache, used by --cache
-/data/system-cache|Volume for system-cache, used by --system-cache
+/data/cache|Volume for cache, used by --cache (`ENABLE_CACHE`)
+/data/system-cache|Volume for system-cache, used by --system-cache (`ENABLE_SYSTEM_CACHE`)
 /user/config|Volume for user-provided configuration. Might contain a `credentials.txt` file.
 
 ### Examples
@@ -222,6 +221,11 @@ You can completely uninstall the service by running:
 ```
 
 Of course, you might simply want run the Spotify binary client or the web player instead of this ervice, but this alternative will allow you to control the player on your desktop system from e.g. a smartphone or any Spotify client. And it will consume significantly less resources.  
+
+### Credentials file
+
+Credentials can be stored on a separate file and mounted as `/user/config/credentials.txt`. The format is the same as the standard `.env` file.  
+By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this file have the priority against the corresponent environment variables, unless you set the variable `PARAMETER_PRIORITY` to `env`.
 
 ## Known issues
 
