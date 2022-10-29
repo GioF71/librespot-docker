@@ -236,7 +236,7 @@ Please note that even in "discovery" mode, the premium account is always require
 
 ### Dependency on Raspotify
 
-I am currently relying, as mentioned before, to the Raspotify project to build this image. Of what Raspotify, this container only uses librespot.  
+I am currently relying, as mentioned before, to the Raspotify project to build this image. Of what Raspotify provides, this container only uses librespot.  
 I have a branch dedicated to this issue: the problem is with the build on GitHub via QEMU, which fails for the armhf architecture.  
 Any help in resolving this issue is welcome.
 
