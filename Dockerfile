@@ -26,6 +26,13 @@ RUN apt-get install -y libpulse-dev
 
 #RUN cargo install librespot
 
+RUN mkdir /src
+WORKDIR /src
+RUN git clone --branch master https://github.com/librespot-org/librespot.git
+WORKDIR /src/librespot
+RUN cargo build --release --no-default-features --features alsa-backend --features pulseaudio-backend
+RUN rm -Rf /src
+
 RUN rm -rf /var/lib/apt/lists/*
 
 #FROM scratch
