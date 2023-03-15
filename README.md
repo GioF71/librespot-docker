@@ -225,7 +225,7 @@ Of course, you might simply want run the Spotify binary client or the web player
 ### Credentials file
 
 Credentials can be stored on a separate file and mounted as `/user/config/credentials.txt`. The format is the same as the standard `.env` file.  
-By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this file have the priority against the corresponent environment variables, unless you set the variable `PARAMETER_PRIORITY` to `env`.
+By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this file have the priority against the correspondent environment variables, unless you set the variable `PARAMETER_PRIORITY` to `env`.
 
 ## Known issues
 
