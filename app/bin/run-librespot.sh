@@ -229,15 +229,20 @@ if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
     ur=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_USERNAME}))
     pr=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_PASSWORD}))
     some_asterisks=$(printf '*%.0s' $(seq 1 16))
-
     safe=$CMD_LINE
     safe=$(echo "${safe/"$SPOTIFY_USERNAME"/"$some_asterisks"}")
     safe=$(echo "${safe/"$SPOTIFY_PASSWORD"/"$some_asterisks"}")
     echo "Command Line: [$safe]"
-
-    #echo "Command Line: ["$CMD_LINE"]"
-
 fi
+
+if [ -z "${STARTUP_DELAY_SEC}" ]; then
+  STARTUP_DELAY_SEC=$DEFAULT_STARTUP_DELAY_SEC;
+  echo "Setting default value for STARTUP_DELAY_SEC: ["$STARTUP_DELAY_SEC"]"
+fi
+
+echo "About to sleep for $STARTUP_DELAY_SEC second(s)"
+sleep $STARTUP_DELAY_SEC
+echo "Ready to start."
 
 if [ "$BACKEND" = "pulseaudio" ]; then
   su - $USER_NAME -c "$CMD_LINE";
