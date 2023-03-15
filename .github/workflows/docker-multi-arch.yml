@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye"]
+        base: ["rust-bullseye"]
 
     steps:
       - name: Checkout
@@ -32,7 +32,7 @@ jobs:
           echo "REF: ["$ref"]"
 
           declare -A base_image_from_matrix
-          base_image_from_matrix[bullseye]=library/rust:bullseye
+          base_image_from_matrix[rust-bullseye]=library/rust:bullseye
           base_image_from_matrix[rust]=library/rust:latest
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}

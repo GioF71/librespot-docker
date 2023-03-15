@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE} AS BASE
+FROM ${BASE_IMAGE}
 ARG USE_APT_PROXY
 
 RUN mkdir -p /app/bin
@@ -17,18 +17,19 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 	fi
 
 RUN apt-get update
-RUN apt-get upgrade -y
+#RUN apt-get upgrade -y
 RUN apt-get install -y libasound2
 RUN apt-get install -y alsa-utils
 RUN apt-get install -y build-essential
 RUN apt-get install -y libasound2-dev
+RUN apt-get install -y libpulse-dev
 
-RUN cargo install librespot
+#RUN cargo install librespot
 
 RUN rm -rf /var/lib/apt/lists/*
 
-FROM scratch
-COPY --from=BASE / /
+#FROM scratch
+#COPY --from=BASE / /
 
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/librespot-docker"
@@ -94,9 +95,13 @@ ENV PGID ""
 ENV PARAMETER_PRIORITY ""
 ENV LOG_COMMAND_LINE ""
 
+ENV CARGO_HOME "/cargo-home"
+
 VOLUME /data/cache
 VOLUME /data/system-cache
 VOLUME /user/config
+
+VOLUME /cargo-home
 
 COPY README.md /app/doc/
 
@@ -104,7 +109,7 @@ RUN mkdir -p /app/assets
 
 COPY app/assets/pulse-client-template.conf /app/assets/
 
-RUN which librespot
+#RUN which librespot
 
 COPY app/bin/run-librespot.sh /app/bin/
 COPY app/bin/read-file.sh /app/bin/

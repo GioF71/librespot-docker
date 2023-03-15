@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# install librespot at container runtime
+
+mkdir /src
+cd /src
+git clone --branch master https://github.com/librespot-org/librespot.git
+cd librespot
+cargo build --release --no-default-features --features alsa-backend --features pulseaudio-backend
+rm -Rf /src
+
+cd /app/bin
+
+#cargo install librespot
+
 DEFAULT_STARTUP_DELAY_SEC=0
 
 declare -A file_dict
@@ -15,6 +28,7 @@ if [ -f "$CREDENTIALS_FILE" ]; then
 fi
 
 CMD_LINE="/usr/bin/librespot"
+CMD_LINE="/cargo-home/bin/librespot"
 
 DEFAULT_UID=1000
 DEFAULT_GID=1000
@@ -81,7 +95,7 @@ if [ -n "$SPOTIFY_PASSWORD" ]; then
     CMD_LINE="$CMD_LINE --password '$SPOTIFY_PASSWORD'"
 fi
 
-if [ -n "$BACKEND" ]; then
+if [ -n "${BACKEND}" ]; then
     CMD_LINE="$CMD_LINE --backend $BACKEND"
 fi
 
@@ -244,7 +258,7 @@ echo "About to sleep for $STARTUP_DELAY_SEC second(s)"
 sleep $STARTUP_DELAY_SEC
 echo "Ready to start."
 
-if [ "$BACKEND" = "pulseaudio" ]; then
+if [[ "${BACKEND^^}" == "PULSEAUDIO" ]]; then
   su - $USER_NAME -c "$CMD_LINE";
 else
   eval $CMD_LINE;
