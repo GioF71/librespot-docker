@@ -30,7 +30,7 @@ RUN mkdir /src
 WORKDIR /src
 RUN git clone --branch master https://github.com/librespot-org/librespot.git
 WORKDIR /src/librespot
-RUN cargo build --release --no-default-features --features alsa-backend --features pulseaudio-backend
+RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features alsa-backend --features pulseaudio-backend
 RUN rm -Rf /src
 
 RUN rm -rf /var/lib/apt/lists/*
