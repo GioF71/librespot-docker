@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "run-librespot.sh"
+
 DEFAULT_STARTUP_DELAY_SEC=0
 
 declare -A file_dict
