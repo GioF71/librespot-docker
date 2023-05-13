@@ -116,7 +116,7 @@ Volume|Description
 
 Using docker-compose is preferable for multiple reason, a notable one is the fact that it avoids a few headaches with password escaping, in case of special characters.  
 
-Among the `docker-compose.yaml` files hereby presented, those which use credentials requires a `.env` file at the same level of the `docker-compose.yaml` file itself. The file should have the following format:
+Among the `docker-compose.yaml` files hereby presented, those which use credentials require a `.env` file at the same level of the `docker-compose.yaml` file itself. The `.env` file should have the following format:
 
 ```text
 SPOTIFY_USERNAME=myusername
