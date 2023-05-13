@@ -19,7 +19,7 @@ Images: [DockerHub](https://hub.docker.com/r/giof71/librespot)
 
 ## Why
 
-I prepared this Dockerfile Because I wanted to be able to install librespot easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameter easily, maybe through a webapp like Portainer.
+I prepared this Dockerfile Because I wanted to be able to install librespot easily on any machine (provided the architecture is amd64, armhf or arm64). Also I wanted to be able to configure and govern the parameter easily, maybe through a webapp like Portainer.
 
 ## Prerequisites
 
