@@ -337,6 +337,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2023-05-13|Routine rebuild
 2022-10-28|Credentials are not exposed with the command line output
 2022-10-28|Enabled reading credentials from file
 2022-10-28|Allowed configurability over command line being logged
