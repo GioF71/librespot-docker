@@ -125,7 +125,9 @@ SPOTIFY_PASSWORD=mypassword
 
 ##### Docker-compose in Alsa mode
 
-```code
+With credentials:
+
+```text
 ---
 version: "3"
 
@@ -145,9 +147,33 @@ services:
       - DEVICE_NAME=gustard-u12
 ```
 
+Discovery mode:
+
+```text
+---
+version: "3"
+
+services:
+  librespot-u12:
+    image: giof71/librespot:latest
+    container_name: librespot-u12
+    network_mode: host
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - DEVICE=hw:x20,0
+      - BACKEND=alsa
+      - BITRATE=320
+      - INITIAL_VOLUME=100
+      - DEVICE_NAME=gustard-u12
+```
+
 ##### Docker-compose in PulseAudio mode
 
-```code
+With credentials:
+
+
+```text
 ---
 version: "3"
 
@@ -166,11 +192,34 @@ services:
       - /run/user/1000/pulse:/run/user/1000/pulse
 ```
 
+Discovery mode:
+
+
+```text
+---
+version: "3"
+
+services:
+  librespot-pulse:
+    image: giof71/librespot:latest
+    container_name: librespot-pulse
+    network_mode: host
+    environment:
+      - BACKEND=pulseaudio
+      - BITRATE=320
+      - INITIAL_VOLUME=100
+      - DEVICE_NAME=manjaro-xeon10-pulse
+    volumes:
+      - /run/user/1000/pulse:/run/user/1000/pulse
+```
+
 #### Docker run
 
 ##### Docker run in Alsa mode
 
-```code
+With credentials:
+
+```text
 docker run -d --name librespot \
     --device /dev/snd \
     -e DEVICE_NAME=kodi-living-pi4-tuner \
@@ -186,11 +235,30 @@ docker run -d --name librespot \
     giof71/librespot:latest
 ```
 
+Discovery mode:
+
+```text
+docker run -d --name librespot \
+    --device /dev/snd \
+    --network host \
+    -e DEVICE_NAME=kodi-living-pi4-tuner \
+    -e INITIAL_VOLUME=100 \
+    -e BACKEND=alsa \
+    -e DEVICE=hw:D10,0 \
+    -e FORMAT=S32 \
+    -e BITRATE=320 \
+    -e INITIAL_VOLUME=100 \
+    --restart unless-stopped \
+    giof71/librespot:latest
+```
+
 Please note that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
 
 ##### Docker run in PulseAudio mode
 
-```code
+With credentials:
+
+```text
 docker run -d
     -e PUID=1000 \
     -e PGID=1000 \
@@ -198,6 +266,21 @@ docker run -d
     -e BITRATE=320 \
     -e SPOTIFY_USERNAME=myusername \
     -e SPOTIFY_PASSWORD=mypassword \
+    -e DEVICE_NAME=librespot-pulse \
+    -v /run/user/1000/pulse:/run/user/1000/pulse \
+    --name librespot-pulse \
+    giof71/librespot:latest
+```
+
+Discovery mode:
+
+```text
+docker run -d
+    -e PUID=1000 \
+    -e PGID=1000 \
+    --network host \
+    -e BACKEND=pulseaudio \
+    -e BITRATE=320 \
     -e DEVICE_NAME=librespot-pulse \
     -v /run/user/1000/pulse:/run/user/1000/pulse \
     --name librespot-pulse \
@@ -231,7 +314,8 @@ By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this fil
 
 ### Discovery
 
-I have not (yet?) been able to run the container without having to specify the credentials, thus relaying in service discovery. This is probably due to docker. I have found a few solution to similar problems, but such solutions seem overly complicated, thus I currently prefer to stick with providing the credentials.  
+For discovery mode to work, you will need to specify `network_mode=host` on the compose file. Otherwise the player will not be discovered.  
+In this mode, you will not need to provide username and password, but OTOH any premium spotify user on your network will be able to use your Librespot Player. 
 Please note that even in "discovery" mode, the premium account is always required for playback, but it would only not be required to provide the credentials to the container.
 
 ### Dependency on Raspotify
