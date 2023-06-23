@@ -92,6 +92,13 @@ jobs:
             elif [ "${tag_type}" = "daily" ]; then
               echo "daily build";
               tags="${image_name}:daily-${distro_id}";
+              select_special_tags=${special_tags["${distro_id}"]};
+              if [[ -n "${select_special_tags}" ]]; then
+                echo "Found special tags for ["${distro_id}"]=["${select_special_tags}"]";
+                tags="$tags,${select_special_tags}";
+              else
+                echo "No special tag found for ["${distro_id}"]";
+              fi
             fi
           fi
           echo "Building tags: ["${tags}"]"
