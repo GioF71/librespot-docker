@@ -337,6 +337,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2023-06-23|Daily builds update `latest` images
 2023-06-23|Add support for `bookworm`
 2023-05-13|Routine rebuild
 2022-10-28|Credentials are not exposed with the command line output
