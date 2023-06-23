@@ -94,7 +94,7 @@ if [ -n "$INITIAL_VOLUME" ]; then
 fi
 
 if [ -n "$DEVICE_NAME" ]; then
-    CMD_LINE="$CMD_LINE --name $DEVICE_NAME"
+    CMD_LINE="$CMD_LINE --name '$DEVICE_NAME'"
 fi
 
 if [ -n "$DEVICE_TYPE" ]; then

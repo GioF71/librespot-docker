@@ -65,7 +65,7 @@ SPOTIFY_PASSWORD||Your Spotify password.
 BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
 BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa` and `pulseaudio`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
-DEVICE_NAME||Device name.
+DEVICE_NAME||Device name (spaces allowed).
 DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`, `homething`. Defaults to `speaker`.
 DEVICE||Audio device to use. Use `?` to list options if using `alsa`, `portaudio` or `rodio`. Enter the path to the output when using `pipe`. Defaults to the backend's default.
 FORMAT|S16|Output format: `F64`, `F32`, `S32`, `S24`, `S24_3`, `S16`. Defaults to `S16`.
@@ -338,6 +338,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2023-06-23|Pass device name in quotes (see [#67](https://github.com/GioF71/librespot-docker/issues/67))
 2023-06-23|Daily builds update `latest` images
 2023-06-23|Add support for `bookworm`
 2023-05-13|Routine rebuild
