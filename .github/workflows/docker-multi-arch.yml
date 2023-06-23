@@ -35,10 +35,6 @@ jobs:
           base_image_from_matrix[bullseye]=debian:bullseye-slim
           base_image_from_matrix[bookworm]=debian:bookworm-slim
 
-          declare -A special_tags
-          special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
-          special_tags[bullseye]="${image_name}:oldstable"
-
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
             select_base_image=debian:buster-slim
@@ -46,6 +42,10 @@ jobs:
           echo "Select Base Image [" $select_base_image "]"
 
           image_name=${{secrets.DOCKER_USERNAME}}/librespot
+
+          declare -A special_tags
+          special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
+          special_tags[bullseye]="${image_name}:oldstable"
 
           distro_id=${{ matrix.base }}
 
