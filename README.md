@@ -36,7 +36,7 @@ The Dockerfile and the included scripts have been tested on the following distro
 
 - Manjaro Linux with Gnome (amd64)
 - Raspberry Pi 3/4 (32 and 64 bit)
-- Asus Tinkerboard with DietPi ([don't let that board run at a very low minimum frequency](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md)
+- Asus Tinkerboard with DietPi ([don't let that board run at a very low minimum frequency](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md))
 
 As I test the Dockerfile on more platforms, I will update this list.
 
