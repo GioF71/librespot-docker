@@ -9,7 +9,7 @@ base_images[kinetic]=ubuntu:kinetic
 base_images[focal]=ubuntu:focal
 base_images[jammy]=ubuntu:jammy
 
-DEFAULT_BASE_IMAGE=bullseye
+DEFAULT_BASE_IMAGE=bookworm
 DEFAULT_TAG=latest
 DEFAULT_USE_PROXY=N
 DEFAULT_BRANCH=master
