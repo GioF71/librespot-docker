@@ -60,8 +60,8 @@ The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
 :---|:---|:---
-SPOTIFY_USERNAME||Your Spotify username.
-SPOTIFY_PASSWORD||Your Spotify password.
+SPOTIFY_USERNAME||Your Spotify username. Required only if you want to disable discovery.
+SPOTIFY_PASSWORD||Your Spotify password. Required only if you want to disable discovery.
 BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
 BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa` and `pulseaudio`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
