@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS BASE
 ARG USE_APT_PROXY
 
 RUN mkdir -p /app/bin
@@ -17,12 +17,23 @@ RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
 	fi
 
 RUN apt-get update
-RUN apt-get upgrade -y
 RUN apt-get install -y libasound2
 RUN apt-get install -y alsa-utils
 
 RUN apt-get -y install curl
 RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
+
+RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
+		rm /etc/apt/apt.conf.d/01-apt-proxy; \
+	fi
+
+RUN	rm -rf /var/lib/apt/lists/*
+
+FROM scratch
+COPY --from=BASE / /
+
+LABEL maintainer="GioF71"
+LABEL source="https://github.com/GioF71/librespot-docker"
 
 ENV SPOTIFY_USERNAME ""
 ENV SPOTIFY_PASSWORD ""
