@@ -37,6 +37,7 @@ The Dockerfile and the included scripts have been tested on the following distro
 - Manjaro Linux with Gnome (amd64)
 - Raspberry Pi 3/4 (32 and 64 bit)
 - Asus Tinkerboard with DietPi ([don't let that board run at a very low minimum frequency](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md))
+- OSMC on Raspberry Pi 4
 
 As I test the Dockerfile on more platforms, I will update this list.
 
@@ -70,7 +71,7 @@ DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `
 DEVICE||Audio device to use. Use `?` to list options if using `alsa`, `portaudio` or `rodio`. Enter the path to the output when using `pipe`. Defaults to the backend's default.
 FORMAT|S16|Output format: `F64`, `F32`, `S32`, `S24`, `S24_3`, `S16`. Defaults to `S16`.
 ENABLE_CACHE||`Y` or `y` to enable, uses corresponding volume.
-ENABLE_SYSTEM_CACHE||`Y` or `y` to enable, uses corresponding volume.
+ENABLE_SYSTEM_CACHE||`Y` or `y` to enable (recommended), uses corresponding volume (also recommeneded to use).
 CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like `K`, `M` or `G`.
 DISABLE_AUDIO_CACHE||`Y` or `y` to disable.
 DISABLE_CREDENTIAL_CACHE||`Y` or `y` to disable.
@@ -98,8 +99,9 @@ VOLUME_RANGE||Range of the volume control (dB). Default for softvol: `60`. For t
 AUTOPLAY||Autoplay similar songs when your music ends. `Y` or `y` to enable.
 DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. `Y` or `y` to disable gapless mode.
 PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. `Y` or `y` to enable.
-PUID|1000|For pulseaudio mode. Set the same as the current user id.
-PGID|1000|For pulseaudio mode. Set the same as the current group id.
+PUID||Set this value the the user which should run the application, defaults to `1000` if not set when using the `pulseaudio` backend
+PGID||Set this value the the user which should run the application, defaults to `1000` if not set when using the `pulseaudio` backend
+AUDIO_GID||Specifies the gid for the group `audio`, it is required if you want to use, e.g., the `alsa` backend in user mode. Refer to [this page](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md) from my squeezelite-docker repository for more details.
 PARAMETER_PRIORITY||Where to look for a parameter first: `env` or `file`. For example, the `credentials.txt` file compared to `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` environment variables. Defaults to `file`, meaning that each file is considered if it exists and if it contains the required values.
 LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
 
@@ -108,8 +110,10 @@ LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults 
 Volume|Description
 :---|:---
 /data/cache|Volume for cache, used by --cache (`ENABLE_CACHE`)
-/data/system-cache|Volume for system-cache, used by --system-cache (`ENABLE_SYSTEM_CACHE`)
+/data/system-cache|Volume for system-cache (recommended), used by --system-cache (`ENABLE_SYSTEM_CACHE`).
 /user/config|Volume for user-provided configuration. Might contain a `credentials.txt` file.
+
+Please not that the volume `/data/system-cache` will contain the encrypted credentials. Enabling the system cache and using a dedicated volume will help keeping players discoverable by the Spotify web app when you don't provide credentials to LibreSpot.
 
 ### Examples
 
@@ -338,6 +342,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2023-10-06|Change ownership of volumes (see [#75](https://github.com/GioF71/librespot-docker/issues/75))
 2023-09-05|Clean Dockerfile (see [#73](https://github.com/GioF71/librespot-docker/issues/73))
 2023-06-23|Pass device name in quotes (see [#67](https://github.com/GioF71/librespot-docker/issues/67))
 2023-06-23|Daily builds update `latest` images
