@@ -1,5 +1,8 @@
 #!/bin/bash
 
+current_user_id=$(id -u)
+echo "Current user id is [$current_user_id]"
+
 DEFAULT_STARTUP_DELAY_SEC=0
 
 declare -A file_dict
@@ -19,85 +22,86 @@ CMD_LINE="/usr/bin/librespot"
 DEFAULT_UID=1000
 DEFAULT_GID=1000
 
-if [[ "${BACKEND}" == "pulseaudio" && -z "${PUID}" ]]; then
-  PUID=$DEFAULT_UID;
-  echo "Setting default value for PUID: ["$PUID"]"
-  if [[ -z "${PGID}" ]]; then
+if [[ $current_user_id -eq 0 ]]; then
+    if [[ "${BACKEND}" == "pulseaudio" && -z "${PUID}" ]]; then
+    PUID=$DEFAULT_UID;
+    echo "Setting default value for PUID: ["$PUID"]"
+    if [[ -z "${PGID}" ]]; then
+        PGID=$DEFAULT_GID;
+        echo "Also setting default value for PGID: ["$PGID"]"
+    fi
+    fi
+
+    if [[ "${BACKEND}" == "pulseaudio" && -z "${PGID}" ]]; then
     PGID=$DEFAULT_GID;
-    echo "Also setting default value for PGID: ["$PGID"]"
-  fi
+    echo "Setting default value for PGID: ["$PGID"]"
+    fi
+
+    USER_NAME=librespot-user
+    GROUP_NAME=librespot-group
+
+    HOME_DIR=/home/$USER_NAME
+
+    # handle user mode
+    if [[ -n "${PUID}" && -n "${PUID}" ]]; then
+        echo "Ensuring user with uid:[$PUID] gid:[$PGID] exists ...";
+        ### create group if it does not exist
+        if [ ! $(getent group $PGID) ]; then
+            echo "Group with gid [$PGID] does not exist, creating..."
+            groupadd -g $PGID $GROUP_NAME
+            echo "Group [$GROUP_NAME] with gid [$PGID] created."
+        else
+            GROUP_NAME=$(getent group $PGID | cut -d: -f1)
+            echo "Group with gid [$PGID] name [$GROUP_NAME] already exists."
+        fi
+        ### create user if it does not exist
+        if [ ! $(getent passwd $PUID) ]; then
+            echo "User with uid [$PUID] does not exist, creating..."
+            useradd -g $PGID -u $PUID -M $USER_NAME
+            echo "User [$USER_NAME] with uid [$PUID] created."
+        else
+            USER_NAME=$(getent passwd $PUID | cut -d: -f1)
+            echo "user with uid [$PUID] name [$USER_NAME] already exists."
+            HOME_DIR="/home/$USER_NAME"
+        fi
+        ### create home directory
+        if [ ! -d "$HOME_DIR" ]; then
+            echo "Home directory [$HOME_DIR] not found, creating."
+            mkdir -p $HOME_DIR
+            echo ". done."
+        fi
+        chown -R $PUID:$PGID $HOME_DIR
+        if [ -z "${AUDIO_GID}" ]; then
+            echo "WARNING: AUDIO_GID is mandatory for user mode and alsa backend"
+        else
+        if [ $(getent group $AUDIO_GID) ]; then
+            echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
+        else
+            echo "Alsa Mode - Creating group with gid $AUDIO_GID"
+            groupadd -g $AUDIO_GID sq-audio
+        fi
+        echo "Alsa Mode - Adding $USER_NAME [$PUID] to gid [$AUDIO_GID]"
+        AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
+        echo "gid $AUDIO_GID -> group $AUDIO_GRP"
+        usermod -a -G $AUDIO_GRP $USER_NAME
+        echo "Alsa Mode - Successfully created user $USER_NAME:$GROUP_NAME [$PUID:$PGID])";
+        fi
+        # set ownership on volumes
+        chown -R $PUID:$PGID /data/cache
+        chown -R $PUID:$PGID /data/system-cache
+        chown -R $PUID:$PGID /user/config
+    fi
+
+    PULSE_CLIENT_CONF="/etc/pulse/client.conf"
+
+    echo "cat /app/assets/pulse-client-template.conf"
+    cat /app/assets/pulse-client-template.conf
+
+    echo "Creating pulseaudio configuration file $PULSE_CLIENT_CONF..."
+    cp /app/assets/pulse-client-template.conf $PULSE_CLIENT_CONF
+    sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
+    cat $PULSE_CLIENT_CONF
 fi
-
-if [[ "${BACKEND}" == "pulseaudio" && -z "${PGID}" ]]; then
-  PGID=$DEFAULT_GID;
-  echo "Setting default value for PGID: ["$PGID"]"
-fi
-
-USER_NAME=librespot-user
-GROUP_NAME=librespot-group
-
-HOME_DIR=/home/$USER_NAME
-
-# handle user mode
-if [[ -n "${PUID}" && -n "${PUID}" ]]; then
-    echo "Ensuring user with uid:[$PUID] gid:[$PGID] exists ...";
-    ### create group if it does not exist
-    if [ ! $(getent group $PGID) ]; then
-        echo "Group with gid [$PGID] does not exist, creating..."
-        groupadd -g $PGID $GROUP_NAME
-        echo "Group [$GROUP_NAME] with gid [$PGID] created."
-    else
-        GROUP_NAME=$(getent group $PGID | cut -d: -f1)
-        echo "Group with gid [$PGID] name [$GROUP_NAME] already exists."
-    fi
-    ### create user if it does not exist
-    if [ ! $(getent passwd $PUID) ]; then
-        echo "User with uid [$PUID] does not exist, creating..."
-        useradd -g $PGID -u $PUID -M $USER_NAME
-        echo "User [$USER_NAME] with uid [$PUID] created."
-    else
-        USER_NAME=$(getent passwd $PUID | cut -d: -f1)
-        echo "user with uid [$PUID] name [$USER_NAME] already exists."
-        HOME_DIR="/home/$USER_NAME"
-    fi
-    ### create home directory
-    if [ ! -d "$HOME_DIR" ]; then
-        echo "Home directory [$HOME_DIR] not found, creating."
-        mkdir -p $HOME_DIR
-        echo ". done."
-    fi
-    chown -R $PUID:$PGID $HOME_DIR
-    if [ -z "${AUDIO_GID}" ]; then
-        echo "WARNING: AUDIO_GID is mandatory for user mode and alsa backend"
-    else
-      if [ $(getent group $AUDIO_GID) ]; then
-          echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
-      else
-          echo "Alsa Mode - Creating group with gid $AUDIO_GID"
-          groupadd -g $AUDIO_GID sq-audio
-      fi
-      echo "Alsa Mode - Adding $USER_NAME [$PUID] to gid [$AUDIO_GID]"
-      AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
-      echo "gid $AUDIO_GID -> group $AUDIO_GRP"
-      usermod -a -G $AUDIO_GRP $USER_NAME
-      echo "Alsa Mode - Successfully created user $USER_NAME:$GROUP_NAME [$PUID:$PGID])";
-    fi
-    # set ownership on volumes
-    chown -R $PUID:$PGID /data/cache
-    chown -R $PUID:$PGID /data/system-cache
-    chown -R $PUID:$PGID /user/config
-fi
-
-PULSE_CLIENT_CONF="/etc/pulse/client.conf"
-
-echo "cat /app/assets/pulse-client-template.conf"
-cat /app/assets/pulse-client-template.conf
-
-echo "Creating pulseaudio configuration file $PULSE_CLIENT_CONF..."
-cp /app/assets/pulse-client-template.conf $PULSE_CLIENT_CONF
-sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
-cat $PULSE_CLIENT_CONF
-
 
 if [ -n "$SPOTIFY_USERNAME" ]; then
     CMD_LINE="$CMD_LINE --username '$SPOTIFY_USERNAME'"
@@ -260,16 +264,17 @@ if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
     safe=$(echo "${safe/"$SPOTIFY_USERNAME"/"$some_asterisks"}")
     safe=$(echo "${safe/"$SPOTIFY_PASSWORD"/"$some_asterisks"}")
     echo "Command Line: [$safe]"
-
-    #echo "Command Line: ["$CMD_LINE"]"
-
 fi
 
-if [[ "${BACKEND}" = "pulseaudio" || -n "${PUID}" ]]; then
-    echo "Running in user mode ..."
-  su - $USER_NAME -c "$CMD_LINE";
+if [[ $current_user_id -eq 0 ]]; then
+    if [[ "${BACKEND}" = "pulseaudio" || -n "${PUID}" ]]; then
+        echo "Running in user mode ..."
+    su - $USER_NAME -c "$CMD_LINE";
+    else
+        echo "Running as root ..."
+        eval $CMD_LINE;
+    fi
 else
-    echo "Running as root ..."
+    echo "Running as uid: [$current_user_id] ..."
     eval $CMD_LINE;
 fi
-

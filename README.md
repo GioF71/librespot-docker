@@ -342,6 +342,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2023-12-20|Support docker --user mode (see [#77](https://github.com/GioF71/librespot-docker/issues/77))
 2023-10-06|Change ownership of volumes (see [#75](https://github.com/GioF71/librespot-docker/issues/75))
 2023-09-05|Clean Dockerfile (see [#73](https://github.com/GioF71/librespot-docker/issues/73))
 2023-06-23|Pass device name in quotes (see [#67](https://github.com/GioF71/librespot-docker/issues/67))
