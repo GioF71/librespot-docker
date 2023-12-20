@@ -257,6 +257,10 @@ docker run -d --name librespot \
     giof71/librespot:latest
 ```
 
+Discovery mode, using docker `--user`:
+
+See [here](https://github.com/GioF71/audio-tools/tree/main/players/librespot/alsa) for a sample configuration using a specified user (uid) in a docker-compose file.  
+
 Please note that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
 
 ##### Docker run in PulseAudio mode
