@@ -216,7 +216,7 @@ if [ -n "$NORMALISATION_GAIN_TYPE" ]; then
 fi
 
 if [ -n "$NORMALISATION_PREGAIN" ]; then
-    CMD_LINE="$CMD_LINE --normalisation-pre-gain $NORMALISATION_PREGAIN"
+    CMD_LINE="$CMD_LINE --normalisation-pregain $NORMALISATION_PREGAIN"
 fi
 
 if [ -n "$NORMALISATION_THRESHOLD" ]; then
