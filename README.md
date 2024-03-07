@@ -312,7 +312,7 @@ You can completely uninstall the service by running:
 ./uninstall.sh`
 ```
 
-Of course, you might simply want run the Spotify binary client or the web player instead of this ervice, but this alternative will allow you to control the player on your desktop system from e.g. a smartphone or any Spotify client. And it will consume significantly less resources.  
+Of course, you might simply want run the Spotify binary client or the web player instead of this service, but this alternative will allow you to control the player on your desktop system from e.g. a smartphone or any Spotify client. And it will consume significantly less resources.  
 
 ### Credentials file
 
