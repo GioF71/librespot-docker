@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIRECTORY_NAME_DATA_CACHE=/data/cache
+DIRECTORY_NAME_DATA_SYSTEM_CACHE=/data/system-cache
+
 current_user_id=$(id -u)
 echo "Current user id is [$current_user_id]"
 
@@ -22,29 +25,35 @@ CMD_LINE="/usr/bin/librespot"
 DEFAULT_UID=1000
 DEFAULT_GID=1000
 
+echo "BACKEND=[${BACKEND}]"
+
 if [[ $current_user_id -eq 0 ]]; then
-    if [[ "${BACKEND}" == "pulseaudio" && -z "${PUID}" ]]; then
-    PUID=$DEFAULT_UID;
-    echo "Setting default value for PUID: ["$PUID"]"
-    if [[ -z "${PGID}" ]]; then
-        PGID=$DEFAULT_GID;
-        echo "Also setting default value for PGID: ["$PGID"]"
+    if [[ "${BACKEND}" == "pulseaudio" ]]; then
+        echo "Backend is [${BACKEND}], user mode is enforced"
+        if [[ -z "${PUID}" ]]; then
+            PUID=$DEFAULT_UID;
+            echo "Setting default value for PUID: ["$PUID"]"
+            if [[ -z "${PGID}" ]]; then
+                PGID=$DEFAULT_GID;
+                echo "Also setting default value for PGID: ["$PGID"]"
+            fi
+        fi
+        if [[ -z "${PGID}" ]]; then
+            PGID=$DEFAULT_GID;
+            echo "Setting default value for PGID: ["$PGID"]"
+        fi
     fi
-    fi
-
-    if [[ "${BACKEND}" == "pulseaudio" && -z "${PGID}" ]]; then
-    PGID=$DEFAULT_GID;
-    echo "Setting default value for PGID: ["$PGID"]"
-    fi
-
     USER_NAME=librespot-user
     GROUP_NAME=librespot-group
-
     HOME_DIR=/home/$USER_NAME
-
     # handle user mode
-    if [[ -n "${PUID}" && -n "${PUID}" ]]; then
-        echo "Ensuring user with uid:[$PUID] gid:[$PGID] exists ...";
+    if [[ -n "${PUID}" ]]; then
+        if [[ -z "${PGID}" ]]; then
+            echo "PUID is set to [${PUID}] but PGID is empty, using PUID"
+            PGID=${PUID}
+        fi
+        echo "User mode with PUID=[${PUID}] PGID=[${PGID}] AUDIO_GID=[${AUDIO_GID}]"
+        echo "Ensuring user with uid:[${PUID}] gid:[${PGID}] exists ...";
         ### create group if it does not exist
         if [ ! $(getent group $PGID) ]; then
             echo "Group with gid [$PGID] does not exist, creating..."
@@ -70,37 +79,45 @@ if [[ $current_user_id -eq 0 ]]; then
             mkdir -p $HOME_DIR
             echo ". done."
         fi
-        chown -R $PUID:$PGID $HOME_DIR
-        if [ -z "${AUDIO_GID}" ]; then
-            echo "WARNING: AUDIO_GID is mandatory for user mode and alsa backend"
+        echo "Setting ownership of [${HOME_DIR}] to [$USER_NAME:$GROUP_NAME] ..."
+        chown -R $USER_NAME:$GROUP_NAME $HOME_DIR
+        echo "Done."
+        if [[ $PUID -ne 0 ]]; then
+            if [ -z "${AUDIO_GID}" ]; then
+                echo "WARNING: AUDIO_GID is mandatory for user mode and alsa backend"
+                echo "WARNING: Ignore the previous warning if you set PGID to the ""audio"" group"
+            else
+                if [ $(getent group $AUDIO_GID) ]; then
+                    echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
+                else
+                    echo "Alsa Mode - Creating group with gid $AUDIO_GID"
+                    groupadd -g $AUDIO_GID sq-audio
+                fi
+                echo "Alsa Mode - Adding $USER_NAME [$PUID] to gid [$AUDIO_GID]"
+                AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
+                echo "gid $AUDIO_GID -> group $AUDIO_GRP"
+                usermod -a -G $AUDIO_GRP $USER_NAME
+                echo "Alsa Mode - Successfully created user $USER_NAME:$GROUP_NAME [$PUID:$PGID])";
+            fi
         else
-        if [ $(getent group $AUDIO_GID) ]; then
-            echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
-        else
-            echo "Alsa Mode - Creating group with gid $AUDIO_GID"
-            groupadd -g $AUDIO_GID sq-audio
-        fi
-        echo "Alsa Mode - Adding $USER_NAME [$PUID] to gid [$AUDIO_GID]"
-        AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
-        echo "gid $AUDIO_GID -> group $AUDIO_GRP"
-        usermod -a -G $AUDIO_GRP $USER_NAME
-        echo "Alsa Mode - Successfully created user $USER_NAME:$GROUP_NAME [$PUID:$PGID])";
+            echo "PUID specifies the root user, not adding to the ""audio"" group"
         fi
         # set ownership on volumes
-        chown -R $PUID:$PGID /data/cache
-        chown -R $PUID:$PGID /data/system-cache
-        chown -R $PUID:$PGID /user/config
+        echo "Setting ownership of volumes to [$USER_NAME:$GROUP_NAME] ..."
+        chown -R $USER_NAME:$GROUP_NAME $DIRECTORY_NAME_DATA_CACHE
+        chown -R $USER_NAME:$GROUP_NAME $DIRECTORY_NAME_DATA_SYSTEM_CACHE
+        echo "Done."
     fi
-
-    PULSE_CLIENT_CONF="/etc/pulse/client.conf"
-
-    echo "cat /app/assets/pulse-client-template.conf"
-    cat /app/assets/pulse-client-template.conf
-
-    echo "Creating pulseaudio configuration file $PULSE_CLIENT_CONF..."
-    cp /app/assets/pulse-client-template.conf $PULSE_CLIENT_CONF
-    sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
-    cat $PULSE_CLIENT_CONF
+    # preparing for pulseaudio
+    if [[ "${BACKEND}" == "pulseaudio" ]]; then
+        PULSE_CLIENT_CONF="/etc/pulse/client.conf"
+        echo "cat /app/assets/pulse-client-template.conf"
+        cat /app/assets/pulse-client-template.conf
+        echo "Creating pulseaudio configuration file $PULSE_CLIENT_CONF..."
+        cp /app/assets/pulse-client-template.conf $PULSE_CLIENT_CONF
+        sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
+        cat $PULSE_CLIENT_CONF
+    fi
 fi
 
 if [ -n "$SPOTIFY_USERNAME" ]; then
@@ -140,11 +157,25 @@ if [ -n "$FORMAT" ]; then
 fi
 
 if [ "${ENABLE_CACHE^^}" = "Y" ]; then
-  CMD_LINE="$CMD_LINE --cache /data/cache"
+    if [ -w "$DIRECTORY_NAME_DATA_CACHE" ]; then
+        echo "Directory [$DIRECTORY_NAME_DATA_CACHE] is writable"
+        CMD_LINE="$CMD_LINE --cache $DIRECTORY_NAME_DATA_CACHE"
+    else
+        echo "Directory [$DIRECTORY_NAME_DATA_CACHE] is not writable, creating in /tmp ..."
+        mkdir -p /tmp/cache
+        CMD_LINE="$CMD_LINE --cache /tmp/cache"
+    fi
 fi 
 
 if [ "${ENABLE_SYSTEM_CACHE^^}" = "Y" ]; then
-  CMD_LINE="$CMD_LINE --system-cache /data/system-cache"
+    if [ -w "$DIRECTORY_NAME_DATA_SYSTEM_CACHE" ]; then
+        echo "Directory [$DIRECTORY_NAME_DATA_SYSTEM_CACHE] is writable"
+        CMD_LINE="$CMD_LINE --system-cache $DIRECTORY_NAME_DATA_SYSTEM_CACHE"
+    else
+        echo "Directory [$DIRECTORY_NAME_DATA_SYSTEM_CACHE] is not writable, creating in /tmp ..."
+        mkdir -p /tmp/system-cache
+        CMD_LINE="$CMD_LINE --system-cache /tmp/system-cache"
+    fi
 fi
 
 if [ -n "$CACHE_SIZE_LIMIT" ]; then
@@ -267,14 +298,14 @@ if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
 fi
 
 if [[ $current_user_id -eq 0 ]]; then
-    if [[ "${BACKEND}" = "pulseaudio" || -n "${PUID}" ]]; then
+    if [[ "${BACKEND}" == "pulseaudio" || -n "${PUID}" ]]; then
         echo "Running in user mode ..."
-    su - $USER_NAME -c "$CMD_LINE";
+        su - $USER_NAME -c "$CMD_LINE"
     else
         echo "Running as root ..."
         eval $CMD_LINE;
     fi
 else
     echo "Running as uid: [$current_user_id] ..."
-    eval $CMD_LINE;
+    eval $CMD_LINE
 fi
