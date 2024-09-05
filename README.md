@@ -346,6 +346,8 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2024-09-05|Handle non-writable volumes more gracefully
+2024-09-05|Fix user and group management
 2024-03-07|Fix switch for normalisation pregain (see [#81](https://github.com/GioF71/librespot-docker/issues/77))
 2023-12-20|Support docker --user mode (see [#77](https://github.com/GioF71/librespot-docker/issues/77))
 2023-10-06|Change ownership of volumes (see [#75](https://github.com/GioF71/librespot-docker/issues/75))
