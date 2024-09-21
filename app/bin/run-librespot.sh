@@ -300,12 +300,12 @@ fi
 if [[ $current_user_id -eq 0 ]]; then
     if [[ "${BACKEND}" == "pulseaudio" || -n "${PUID}" ]]; then
         echo "Running in user mode ..."
-        su - $USER_NAME -c "$CMD_LINE"
+        exec su - $USER_NAME -c "$CMD_LINE"
     else
         echo "Running as root ..."
-        eval $CMD_LINE;
+        eval "exec $CMD_LINE";
     fi
 else
     echo "Running as uid: [$current_user_id] ..."
-    eval $CMD_LINE
+    eval "exec $CMD_LINE"
 fi

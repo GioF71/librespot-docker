@@ -346,6 +346,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2024-09-21|Use exec instead of eval
 2024-09-05|Handle non-writable volumes more gracefully
 2024-09-05|Fix user and group management
 2024-03-07|Fix switch for normalisation pregain (see [#81](https://github.com/GioF71/librespot-docker/issues/77))
