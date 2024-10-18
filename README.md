@@ -14,8 +14,12 @@ I am also currently relying on Raspotify because building images from crates.io 
 
 ## Links
 
-Source: [GitHub](https://github.com/giof71/librespot-docker)  
-Images: [DockerHub](https://hub.docker.com/r/giof71/librespot)
+REPOSITORY TYPE|LINK
+:---|:---
+Git Repository|[GitHub](https://github.com/giof71/librespot-docker)  
+Docker Images|[DockerHub](https://hub.docker.com/r/giof71/librespot)
+
+The `latest` image is published daily, so it will include the same version of [Librespot](https://github.com/librespot-org/librespot) included in the current release of [Raspotify](https://github.com/dtcooper/raspotify).
 
 ## Why
 
