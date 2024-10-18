@@ -71,7 +71,7 @@ DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `
 DEVICE||Audio device to use. Use `?` to list options if using `alsa`, `portaudio` or `rodio`. Enter the path to the output when using `pipe`. Defaults to the backend's default.
 FORMAT|S16|Output format: `F64`, `F32`, `S32`, `S24`, `S24_3`, `S16`. Defaults to `S16`.
 ENABLE_CACHE||`Y` or `y` to enable, uses corresponding volume.
-ENABLE_SYSTEM_CACHE||`Y` or `y` to enable (recommended), uses corresponding volume (also recommeneded to use).
+ENABLE_SYSTEM_CACHE||`Y` or `y` to enable (recommended), uses corresponding volume (also recommended to use).
 CACHE_SIZE_LIMIT||Limits the size of the cache for audio files. It's possible to use suffixes like `K`, `M` or `G`.
 DISABLE_AUDIO_CACHE||`Y` or `y` to disable.
 DISABLE_CREDENTIAL_CACHE||`Y` or `y` to disable.
