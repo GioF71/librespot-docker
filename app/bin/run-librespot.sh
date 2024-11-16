@@ -286,8 +286,8 @@ if [ "${PASSTHROUGH^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --passthrough"
 fi
 
-if [ -n "$ON_EVENT" ]; then
-    CMD_LINE="$CMD_LINE --onevent $ON_EVENT"
+if [ -n "$ONEVENT_COMMAND" ]; then
+    CMD_LINE="$CMD_LINE --onevent 'bash /userscripts/$ONEVENT_COMMAND'"
 fi
 
 if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
