@@ -286,8 +286,13 @@ if [ "${PASSTHROUGH^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --passthrough"
 fi
 
-if [ -n "$ONEVENT_COMMAND" ]; then
-    CMD_LINE="$CMD_LINE --onevent 'bash /userscripts/$ONEVENT_COMMAND'"
+# parse onevent related config options
+# if both onevent options are set,
+# the user defined script takes precedence
+if [[ -n "$ONEVENT_COMMAND" ]]; then
+    CMD_LINE="$CMD_LINE --onevent '/userscripts/$ONEVENT_COMMAND'"
+elif [[ -n "$ONEVENT_POST_ENDPOINT" ]]; then
+    CMD_LINE="$CMD_LINE --onevent '/app/bin/post-event-data.sh --url=$ONEVENT_POST_ENDPOINT'"
 fi
 
 if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
