@@ -107,6 +107,8 @@ PUID||Set this value the the user which should run the application, defaults to 
 PGID||Set this value the the user which should run the application, defaults to `1000` if not set when using the `pulseaudio` backend
 AUDIO_GID||Specifies the gid for the group `audio`, it is required if you want to use, e.g., the `alsa` backend in user mode. Refer to [this page](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md) from my squeezelite-docker repository for more details.
 PARAMETER_PRIORITY||Where to look for a parameter first: `env` or `file`. For example, the `credentials.txt` file compared to `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` environment variables. Defaults to `file`, meaning that each file is considered if it exists and if it contains the required values.
+ONEVENT_COMMAND||Specifies the name of a user defined script/executable that will be executed whenever a player event occurs. User defined scripts must be mounted to the `/userscripts/` folder and be made executable via `chmod u+x`. Internally maps to the `--onevent` flag of `librespot`. More info about usage can be found in [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs).
+ONEVENT_POST_ENDPOINT||Send a `POST` request with event data to the specified endpoint URL whenever a player event occurs. Request body is `json` encoded and contains all available fields specified by the [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs). Will be ignored if `ONEVENT_COMMAND` is set.
 LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
 
 ### Volumes

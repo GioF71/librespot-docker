@@ -97,6 +97,9 @@ ENV AUDIO_GID=""
 ENV PARAMETER_PRIORITY=""
 ENV LOG_COMMAND_LINE=""
 
+ENV ONEVENT_COMMAND=""
+ENV ONEVENT_POST_ENDPOINT=""
+
 VOLUME /data/cache
 VOLUME /data/system-cache
 VOLUME /user/config
@@ -112,6 +115,7 @@ RUN which librespot
 COPY app/bin/run-librespot.sh /app/bin/
 COPY app/bin/read-file.sh /app/bin/
 COPY app/bin/get-value.sh /app/bin/
+COPY app/bin/post-event-data.sh /app/bin/
 
 RUN chmod u+x /app/bin/*.sh
 
