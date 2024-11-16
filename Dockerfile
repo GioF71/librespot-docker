@@ -97,6 +97,8 @@ ENV AUDIO_GID=""
 ENV PARAMETER_PRIORITY=""
 ENV LOG_COMMAND_LINE=""
 
+ENV ON_EVENT=""
+
 VOLUME /data/cache
 VOLUME /data/system-cache
 VOLUME /user/config

@@ -286,6 +286,10 @@ if [ "${PASSTHROUGH^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --passthrough"
 fi
 
+if [ -n "$ON_EVENT" ]; then
+    CMD_LINE="$CMD_LINE --onevent $ON_EVENT"
+fi
+
 if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
     ur=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_USERNAME}))
     pr=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_PASSWORD}))
