@@ -350,6 +350,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2024-11-17|Fix docker warning (see [#94](https://github.com/GioF71/librespot-docker/issues/94))
 2024-11-16|Add support for `-onevent` (see [#91](https://github.com/GioF71/librespot-docker/issues/91)), thanks to [@QuadratClown](https://github.com/QuadratClown)
 2024-09-21|Use exec instead of eval
 2024-09-05|Handle non-writable volumes more gracefully
