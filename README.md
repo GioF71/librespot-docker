@@ -139,27 +139,6 @@ Please note that username and password is deprecated as an authentication method
 
 ##### Docker-compose in Alsa mode
 
-With credentials:
-
-```text
----
-version: "3"
-
-services:
-  librespot:
-    image: giof71/librespot:latest
-    devices:
-      - /dev/snd:/dev/snd
-    environment:
-      - DEVICE=hw:x20,0
-      - SPOTIFY_USERNAME=${SPOTIFY_USERNAME}
-      - SPOTIFY_PASSWORD=${SPOTIFY_PASSWORD}
-      - BACKEND=alsa
-      - BITRATE=320
-      - INITIAL_VOLUME=100
-      - DEVICE_NAME=gustard-u12
-```
-
 Discovery mode:
 
 ```text
