@@ -102,7 +102,7 @@ VOLUME_CTRL||Volume control type `cubic`, `fixed`, `linear`, `log`. Defaults to 
 VOLUME_RANGE||Range of the volume control (dB). Default for softvol: `60`. For the `alsa` mixer: what the control supports.
 AUTOPLAY||Autoplay similar songs when your music ends. `Y` or `y` to enable.
 DISABLE_GAPLESS||Disables gapless playback by forcing the sink to close between tracks. `Y` or `y` to disable gapless mode.
-PASSTHROUGH||Pass a raw stream to the output. Only works with the pipe and subprocess backends. `Y` or `y` to enable.
+PASSTHROUGH||Pass a raw stream to the output.  works with the pipe and subprocess backends. `Y` or `y` to enable.
 PUID||Set this value the the user which should run the application, defaults to `1000` if not set when using the `pulseaudio` backend
 PGID||Set this value the the user which should run the application, defaults to `1000` if not set when using the `pulseaudio` backend
 AUDIO_GID||Specifies the gid for the group `audio`, it is required if you want to use, e.g., the `alsa` backend in user mode. Refer to [this page](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md) from my squeezelite-docker repository for more details.
@@ -264,9 +264,9 @@ By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this fil
 
 ### Discovery
 
-For discovery mode to work, you will need to specify `network_mode=host` on the compose file. Otherwise the player will not be discovered.  
-In this mode, you will not need to provide username and password, but OTOH any premium spotify user on your network will be able to use your Librespot Player.  
-Please note that even in "discovery" mode, the premium account is always required for playback, but it would only not be required to provide the credentials to the container.
+For discovery mode to work, you will need to specify `network_mode=host` on the compose file. Otherwise the player will not be discoverable.  
+In this mode, authentication is not required on the container itself, but OTOH any premium spotify user on your network will be able to use your Librespot Player.  
+Please note that even when using the "discovery" mode, the premium account is always required for playback.  
 
 ### Dependency on Raspotify
 
