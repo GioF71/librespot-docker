@@ -65,8 +65,8 @@ The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
 :---|:---|:---
-SPOTIFY_USERNAME||Your Spotify username. Required only if you want to disable discovery.
-SPOTIFY_PASSWORD||Your Spotify password. Required only if you want to disable discovery.
+SPOTIFY_USERNAME||Your Spotify username. Required only if you want to disable discovery (DEPRECATED).
+SPOTIFY_PASSWORD||Your Spotify password. Required only if you want to disable discovery (DEPRECATED).
 BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
 BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa` and `pulseaudio`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
@@ -109,6 +109,7 @@ AUDIO_GID||Specifies the gid for the group `audio`, it is required if you want t
 PARAMETER_PRIORITY||Where to look for a parameter first: `env` or `file`. For example, the `credentials.txt` file compared to `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` environment variables. Defaults to `file`, meaning that each file is considered if it exists and if it contains the required values.
 ONEVENT_COMMAND||Specifies the name of a user defined script/executable that will be executed whenever a player event occurs. User defined scripts must be mounted to the `/userscripts/` folder and be made executable via `chmod u+x`. Internally maps to the `--onevent` flag of `librespot`. More info about usage can be found in [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs).
 ONEVENT_POST_ENDPOINT||Send a `POST` request with event data to the specified endpoint URL whenever a player event occurs. Request body is `json` encoded and contains all available fields specified by the [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs). Will be ignored if `ONEVENT_COMMAND` is set.
+ENABLE_OAUTH||Set to `headless` to enable OAUTH authentication. You will need to run the container interactively the first time. Recommended to enable when caching is also enabled.
 LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
 
 ### Volumes
@@ -134,6 +135,8 @@ SPOTIFY_USERNAME=myusername
 SPOTIFY_PASSWORD=mypassword
 ```
 
+Please note that username and password is deprecated as an authentication method in librespot.  
+
 ##### Docker-compose in Alsa mode
 
 With credentials:
@@ -143,9 +146,8 @@ With credentials:
 version: "3"
 
 services:
-  librespot-u12:
+  librespot:
     image: giof71/librespot:latest
-    container_name: librespot-u12
     devices:
       - /dev/snd:/dev/snd
     environment:
@@ -165,9 +167,8 @@ Discovery mode:
 version: "3"
 
 services:
-  librespot-u12:
+  librespot:
     image: giof71/librespot:latest
-    container_name: librespot-u12
     network_mode: host
     devices:
       - /dev/snd:/dev/snd
@@ -188,9 +189,8 @@ With credentials:
 version: "3"
 
 services:
-  librespot-pulse:
+  librespot:
     image: giof71/librespot:latest
-    container_name: librespot-pulse
     environment:
       - SPOTIFY_USERNAME=${SPOTIFY_USERNAME}
       - SPOTIFY_PASSWORD=${SPOTIFY_PASSWORD}
@@ -209,9 +209,8 @@ Discovery mode:
 version: "3"
 
 services:
-  librespot-pulse:
+  librespot:
     image: giof71/librespot:latest
-    container_name: librespot-pulse
     network_mode: host
     environment:
       - BACKEND=pulseaudio
@@ -226,25 +225,7 @@ services:
 
 ##### Docker run in Alsa mode
 
-With credentials:
-
-```text
-docker run -d --name librespot \
-    --device /dev/snd \
-    -e DEVICE_NAME=kodi-living-pi4-tuner \
-    -e INITIAL_VOLUME=100 \
-    -e BACKEND=alsa \
-    -e DEVICE=hw:D10,0 \
-    -e FORMAT=S32 \
-    -e BITRATE=320 \
-    -e INITIAL_VOLUME=100 \
-    -e SPOTIFY_USERNAME=myusername \
-    -e SPOTIFY_PASSWORD=mypassword \
-    --restart unless-stopped \
-    giof71/librespot:latest
-```
-
-Discovery mode:
+In discovery mode:
 
 ```text
 docker run -d --name librespot \
@@ -268,22 +249,6 @@ See [here](https://github.com/GioF71/audio-tools/tree/main/players/librespot/als
 Please note that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
 
 ##### Docker run in PulseAudio mode
-
-With credentials:
-
-```text
-docker run -d
-    -e PUID=1000 \
-    -e PGID=1000 \
-    -e BACKEND=pulseaudio \
-    -e BITRATE=320 \
-    -e SPOTIFY_USERNAME=myusername \
-    -e SPOTIFY_PASSWORD=mypassword \
-    -e DEVICE_NAME=librespot-pulse \
-    -v /run/user/1000/pulse:/run/user/1000/pulse \
-    --name librespot-pulse \
-    giof71/librespot:latest
-```
 
 Discovery mode:
 
@@ -318,7 +283,20 @@ You can completely uninstall the service by running:
 
 Of course, you might simply want run the Spotify binary client or the web player instead of this service, but this alternative will allow you to control the player on your desktop system from e.g. a smartphone or any Spotify client. And it will consume significantly less resources.  
 
-### Credentials file
+### Running interactively
+
+If you have set ENABLE_OAUTH to `headless`, you will need to run your docker-compose.yaml interactively the first time.  
+In order to do that, run your compose file using the following:
+
+```text
+docker-compose run librespot
+```
+
+assuming that `librespot` is the name of the service. Tune the command if needed.  
+This command will let you see the container logs. You will have to open your browser at the displayed link, authenticated with Spotify and authorize the device, then paste the redirect URL to the terminal.  
+After the first start, you can start the container as usual using `docker-compose up -d`.
+
+### Credentials file (DEPRECATED)
 
 Credentials can be stored on a separate file and mounted as `/user/config/credentials.txt`. The format is the same as the standard `.env` file.  
 By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this file have the priority against the correspondent environment variables, unless you set the variable `PARAMETER_PRIORITY` to `env`.
@@ -328,7 +306,7 @@ By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this fil
 ### Discovery
 
 For discovery mode to work, you will need to specify `network_mode=host` on the compose file. Otherwise the player will not be discovered.  
-In this mode, you will not need to provide username and password, but OTOH any premium spotify user on your network will be able to use your Librespot Player. 
+In this mode, you will not need to provide username and password, but OTOH any premium spotify user on your network will be able to use your Librespot Player.  
 Please note that even in "discovery" mode, the premium account is always required for playback, but it would only not be required to provide the credentials to the container.
 
 ### Dependency on Raspotify
@@ -350,6 +328,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2024-11-22|Add support for OAUTH authentication (see [#96](https://github.com/GioF71/librespot-docker/issues/96))
 2024-11-17|Fix docker warning (see [#94](https://github.com/GioF71/librespot-docker/issues/94))
 2024-11-16|Add support for `-onevent` (see [#91](https://github.com/GioF71/librespot-docker/issues/91)), thanks to [@QuadratClown](https://github.com/QuadratClown)
 2024-09-21|Use exec instead of eval
