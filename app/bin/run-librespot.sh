@@ -295,6 +295,12 @@ elif [[ -n "$ONEVENT_POST_ENDPOINT" ]]; then
     CMD_LINE="$CMD_LINE --onevent '/app/bin/post-event-data.sh --url=$ONEVENT_POST_ENDPOINT'"
 fi
 
+if [[ -n "${ENABLE_OAUTH}" ]]; then
+    if [[ "${ENABLE_OAUTH^^}" == "HEADLESS" ]]; then
+        CMD_LINE="$CMD_LINE --enable-oauth --oauth-port 0"    
+    fi
+fi
+
 if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
     ur=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_USERNAME}))
     pr=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_PASSWORD}))
