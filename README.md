@@ -161,26 +161,6 @@ services:
 
 ##### Docker-compose in PulseAudio mode
 
-With credentials:
-
-```text
----
-version: "3"
-
-services:
-  librespot:
-    image: giof71/librespot:latest
-    environment:
-      - SPOTIFY_USERNAME=${SPOTIFY_USERNAME}
-      - SPOTIFY_PASSWORD=${SPOTIFY_PASSWORD}
-      - BACKEND=pulseaudio
-      - BITRATE=320
-      - INITIAL_VOLUME=100
-      - DEVICE_NAME=manjaro-xeon10-pulse
-    volumes:
-      - /run/user/1000/pulse:/run/user/1000/pulse
-```
-
 Discovery mode:
 
 ```text
@@ -204,7 +184,7 @@ services:
 
 ##### Docker run in Alsa mode
 
-In discovery mode:
+Discovery mode:
 
 ```text
 docker run -d --name librespot \
