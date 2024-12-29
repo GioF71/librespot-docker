@@ -287,6 +287,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2024-12-29|First release including [Raspotify 0.4.6](https://github.com/dtcooper/raspotify/releases/tag/0.46.0) (see [#101](https://github.com/GioF71/librespot-docker/issues/101))
 2024-11-22|Add support for OAUTH authentication (see [#96](https://github.com/GioF71/librespot-docker/issues/96))
 2024-11-17|Fix docker warning (see [#94](https://github.com/GioF71/librespot-docker/issues/94))
 2024-11-16|Add support for `-onevent` (see [#91](https://github.com/GioF71/librespot-docker/issues/91)), thanks to [@QuadratClown](https://github.com/QuadratClown)
