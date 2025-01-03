@@ -14,6 +14,12 @@ For a long time, I have also been relying on Raspotify because I could not build
 
 Since the first days of 2025, we are successfully building the images directly from source code.
 
+## Support
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H7UIN5D)  
+Please see the [Goal](https://ko-fi.com/giof71/goal?g=0).  
+Please note that support goal is limited to cover running costs for subscriptions to music services.
+
 ## Links
 
 REPOSITORY TYPE|LINK
