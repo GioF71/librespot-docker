@@ -7,6 +7,10 @@ current_user_id=$(id -u)
 echo "Current user id is [$current_user_id]"
 
 DEFAULT_STARTUP_DELAY_SEC=0
+DEFAULT_ZEROCONF_BACKEND=libmdns
+
+# enabled unless explicitly disabled
+discovery_enabled=1
 
 declare -A file_dict
 
@@ -20,6 +24,7 @@ if [ -f "$CREDENTIALS_FILE" ]; then
     SPOTIFY_PASSWORD=$(get_value "SPOTIFY_PASSWORD" $PARAMETER_PRIORITY)
 fi
 
+# CMD_LINE="/usr/bin/librespot"
 CMD_LINE="/usr/bin/librespot"
 
 DEFAULT_UID=1000
@@ -128,7 +133,7 @@ if [ -n "$SPOTIFY_PASSWORD" ]; then
     CMD_LINE="$CMD_LINE --password '$SPOTIFY_PASSWORD'"
 fi
 
-if [ -n "$BACKEND" ]; then
+if [ -n "${BACKEND}" ]; then
     CMD_LINE="$CMD_LINE --backend $BACKEND"
 fi
 
@@ -224,14 +229,28 @@ fi
 
 if [ "${DISABLE_DISCOVERY^^}" = "Y" ]; then
     CMD_LINE="$CMD_LINE --disable-discovery"
+    discovery_enabled=0
 fi
 
 if [ -n "$DITHER" ]; then
     CMD_LINE="$CMD_LINE --dither $DITHER"
 fi
 
-if [ -n "$ZEROCONF_PORT" ]; then
-    CMD_LINE="$CMD_LINE --zeroconf-port $ZEROCONF_PORT"
+# zeroconf
+if [ $discovery_enabled -eq 1 ]; then
+    echo "Discovery is enabled."
+    if [ -n "$ZEROCONF_PORT" ]; then
+        echo "Using zeroconf port [$ZEROCONF_PORT}]"
+        CMD_LINE="$CMD_LINE --zeroconf-port $ZEROCONF_PORT"
+    fi
+    zeroconf_backend=$DEFAULT_ZEROCONF_BACKEND
+    if [[ -n "${ZEROCONF_BACKEND}" ]]; then
+        zeroconf_backend=$ZEROCONF_BACKEND
+    fi
+    echo "Using zeroconf backend [${zeroconf_backend}]"
+    CMD_LINE="$CMD_LINE --zeroconf-backend $zeroconf_backend"
+else
+    echo "Discovery is not enabled."
 fi
 
 if [ "${ENABLE_VOLUME_NORMALISATION^^}" = "Y" ]; then
@@ -301,11 +320,17 @@ if [[ -n "${ENABLE_OAUTH}" ]]; then
     fi
 fi
 
+if [[ -n "${ADDITIONAL_ARGUMENTS}" ]]; then
+    echo "ADDITIONAL_ARGUMENTS=[${ADDITIONAL_ARGUMENTS}]"
+    CMD_LINE="$CMD_LINE ${ADDITIONAL_ARGUMENTS}"
+else
+    echo "Additional arguments have not been specified." 
+fi
+
 if [[ -z "${LOG_COMMAND_LINE}" || "${LOG_COMMAND_LINE^^}" = "Y" ]]; then
     ur=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_USERNAME}))
     pr=$(printf '*%.0s' $(seq 1 ${#SPOTIFY_PASSWORD}))
     some_asterisks=$(printf '*%.0s' $(seq 1 16))
-
     safe=$CMD_LINE
     safe=$(echo "${safe/"$SPOTIFY_USERNAME"/"$some_asterisks"}")
     safe=$(echo "${safe/"$SPOTIFY_PASSWORD"/"$some_asterisks"}")
