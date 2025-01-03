@@ -271,19 +271,13 @@ For discovery mode to work, you will need to specify `network_mode=host` on the 
 In this mode, authentication is not required on the container itself, but OTOH any premium spotify user on your network will be able to use your Librespot Player.  
 Please note that even when using the "discovery" mode, the premium account is always required for playback.  
 
-### Dependency on Raspotify
-
-I am currently relying, as mentioned before, to the Raspotify project to build this image. Of what Raspotify provides, this container only uses librespot.  
-I have a branch dedicated to this issue: the problem is with the build on GitHub via QEMU, which fails for the armhf architecture.  
-Any help in resolving this issue is welcome.
-
 ## Build
 
 You can build (or rebuild) the image by opening a terminal from the root of the repository and issuing the following command:
 
 `docker build . -t giof71/librespot`
 
-It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
+Now that we are building from code, please not that the build will take quite a lot of time. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.
 
 ## Change History

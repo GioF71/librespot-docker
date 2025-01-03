@@ -82,5 +82,6 @@ docker buildx build . \
     --build-arg RUST_IMAGE=${select_rust_image} \
     --build-arg BASE_IMAGE=${select_base_image} \
     --build-arg USE_APT_PROXY=${use_proxy} \
+    --load \
     -t giof71/librespot:$tag
 
