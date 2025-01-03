@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bookworm", "bullseye"]
+        base: ["bookworm"]
 
     steps:
       - name: Checkout
@@ -31,13 +31,24 @@ jobs:
           ref=${{ github.ref }}
           echo "REF: ["$ref"]"
 
-          declare -A base_image_from_matrix
-          base_image_from_matrix[bullseye]=debian:bullseye-slim
-          base_image_from_matrix[bookworm]=debian:bookworm-slim
+          declare -A rust_image_from_matrix
+          rust_image_from_matrix[bullseye]=library/rust:slim-bullseye
+          rust_image_from_matrix[bookworm]=library/rust:slim-bookworm
+
+          declare -A base_images
+
+          base_images[bookworm]=library/debian:bookworm-slim
+          base_images[bullseye]=library/debian:bullseye-slim
+
+          select_rust_image=${rust_image_from_matrix[${{ matrix.base }}]}
+          if [ -z "${select_rust_image}" ]; then
+            select_rust_image=library/rust:slim
+          fi
+          echo "Select Rust Image [" $select_rust_image "]"
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
-            select_base_image=debian:buster-slim
+            select_base_image=library/debian:stable-slim
           fi
           echo "Select Base Image [" $select_base_image "]"
 
@@ -103,7 +114,7 @@ jobs:
           fi
           echo "Building tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
-          echo "BASE_IMAGE=${select_base_image}" >> $GITHUB_ENV
+          echo "RUST_IMAGE=${select_rust_image}" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
@@ -121,7 +132,8 @@ jobs:
         with:
           context: .
           build-args: |
+            RUST_IMAGE=${{ env.RUST_IMAGE }}
             BASE_IMAGE=${{ env.BASE_IMAGE }}
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+          platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: ${{ env.RELEASE_TAGS }}

@@ -1,36 +1,53 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE} AS base
-ARG USE_APT_PROXY
+ARG RUST_IMAGE=""
+ARG BASE_IMAGE=""
+FROM ${RUST_IMAGE:-library/rust:slim} AS base
 
 RUN mkdir -p /app/bin
 RUN mkdir -p /app/conf
 RUN mkdir -p /app/doc
 
-COPY app/conf/01-apt-proxy /app/conf/
+# Add build dependencies
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y cmake
+RUN apt-get install -y libclang-dev
+RUN apt-get install -y libasound2-dev
+RUN apt-get install -y libpulse-dev
+RUN apt-get install -y libavahi-compat-libdnssd-dev
+RUN apt-get install -y pkg-config
 
-RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
-	echo "Using apt proxy"; \
-	cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/; \
-	cat /etc/apt/apt.conf.d/01-apt-proxy; \
-	else \
-	echo "Building without proxy"; \
-	fi
+# runtime
+RUN apt-get install -y libavahi-compat-libdnssd1
 
+RUN apt-get install -y git
+
+RUN mkdir /src
+WORKDIR /src
+RUN git clone --branch master https://github.com/librespot-org/librespot.git
+WORKDIR /src/librespot
+RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend with-avahi with-dns-sd with-libmdns"
+RUN cp /src/librespot/target/release/librespot /usr/bin/librespot
+WORKDIR /
+# RUN rm -Rf /src
+
+RUN rm -rf /var/lib/apt/lists/*
+
+FROM ${BASE_IMAGE:-library/debian:stable-slim} AS intermediate
+
+COPY --from=base /usr/bin/librespot /usr/bin/librespot
+
+# Add runtime dependencies only
 RUN apt-get update
 RUN apt-get install -y libasound2
 RUN apt-get install -y alsa-utils
-
-RUN apt-get -y install curl
-RUN curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
-
-RUN if [ "$USE_APT_PROXY" = "Y" ]; then \
-		rm /etc/apt/apt.conf.d/01-apt-proxy; \
-	fi
-
+RUN apt-get install -y --no-install-recommends pulseaudio-utils
+RUN apt-get install -y ca-certificates
+RUN apt-get install -y libavahi-compat-libdnssd1
+    
 RUN	rm -rf /var/lib/apt/lists/*
 
 FROM scratch
-COPY --from=base / /
+COPY --from=intermediate / /
 
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/librespot-docker"
@@ -73,6 +90,7 @@ ENV DISABLE_DISCOVERY=""
 ENV DITHER=""
 
 ENV ZEROCONF_PORT=""
+ENV ZEROCONF_BACKEND=""
 
 ENV ENABLE_VOLUME_NORMALISATION=""
 ENV NORMALISATION_METHOD=""
@@ -102,9 +120,14 @@ ENV ONEVENT_POST_ENDPOINT=""
 
 ENV ENABLE_OAUTH=""
 
+ENV CARGO_HOME "/cargo-home"
+ENV ADDITIONAL_ARGUMENTS=""
+
 VOLUME /data/cache
 VOLUME /data/system-cache
 VOLUME /user/config
+
+VOLUME /cargo-home
 
 COPY README.md /app/doc/
 
@@ -112,7 +135,7 @@ RUN mkdir -p /app/assets
 
 COPY app/assets/pulse-client-template.conf /app/assets/
 
-RUN which librespot
+#RUN which librespot
 
 COPY app/bin/run-librespot.sh /app/bin/
 COPY app/bin/read-file.sh /app/bin/
