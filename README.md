@@ -8,11 +8,11 @@ First and foremost, the reference to the awesome project:
 
 [Librespot](https://github.com/librespot-org/librespot)
 
-For a long time, I have also been relying on Raspotify because building images from crates.io fails for armhf platfrom. So here is the reference to this other excellent project:
+For a long time, I have also been relying on Raspotify because I could not build images using cargo build for the armhf platfrom. So here is the reference to this other excellent project:
 
 [Raspotify](https://github.com/dtcooper/raspotify)
 
-Since the first days of 2025, we are building the images directly from source code.
+Since the first days of 2025, we are successfully building the images directly from source code.
 
 ## Links
 
