@@ -134,6 +134,6 @@ jobs:
           build-args: |
             RUST_IMAGE=${{ env.RUST_IMAGE }}
             BASE_IMAGE=${{ env.BASE_IMAGE }}
-          platforms: linux/amd64,linux/arm64/v8
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
           push: true
           tags: ${{ env.RELEASE_TAGS }}
