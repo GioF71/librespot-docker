@@ -75,7 +75,7 @@ VARIABLE|DEFAULT|NOTES
 SPOTIFY_USERNAME||Your Spotify username. Required only if you want to disable discovery (DEPRECATED).
 SPOTIFY_PASSWORD||Your Spotify password. Required only if you want to disable discovery (DEPRECATED).
 BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
-BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa` and `pulseaudio`.
+BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa`, `pulseaudio`, `pipe`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
 DEVICE_NAME||Device name (spaces allowed).
 DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`, `homething`. Defaults to `speaker`.
@@ -120,6 +120,25 @@ ONEVENT_POST_ENDPOINT||Send a `POST` request with event data to the specified en
 ENABLE_OAUTH||Set to `headless` to enable OAUTH authentication. You will need to run the container interactively the first time. Recommended to enable when caching is also enabled.
 LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
 ADDITIONAL_ARGUMENTS||Use this to add additional arguments to be appended to the command line
+
+### Pipe Mode
+
+When using BACKEND=pipe, specify a device (using variable DEVICE) that is mounted to a fifo file. Example:
+
+```text
+services:
+  librespot:
+    image: giof71/librespot:latest
+    network_mode: host
+    environment:
+      - BACKEND=pipe
+      - DEVICE=/mnt/pipe/spotipipe
+      - BITRATE=320
+      - INITIAL_VOLUME=100
+      - DEVICE_NAME=SpotiPi
+    volumes:
+      - /path/to/fifo:/mnt/pipe/spotipipe
+```
 
 ### Volumes
 
