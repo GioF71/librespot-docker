@@ -75,7 +75,7 @@ VARIABLE|DEFAULT|NOTES
 SPOTIFY_USERNAME||Your Spotify username. Required only if you want to disable discovery (DEPRECATED).
 SPOTIFY_PASSWORD||Your Spotify password. Required only if you want to disable discovery (DEPRECATED).
 BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
-BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa`, `pulseaudio`, `pipe`.
+BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa`, `pulseaudio` and `pipe`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
 DEVICE_NAME||Device name (spaces allowed).
 DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`, `homething`. Defaults to `speaker`.
@@ -137,8 +137,10 @@ services:
       - INITIAL_VOLUME=100
       - DEVICE_NAME=SpotiPi
     volumes:
-      - /path/to/fifo:/mnt/pipe/spotipipe
+      - /path/to/folder/for/fifo-file:/mnt/pipe
 ```
+
+Thank you @marco79cgn for your contributions on [issue #111](https://github.com/GioF71/librespot-docker/issues/111).  
 
 ### Volumes
 
