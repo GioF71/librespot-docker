@@ -43,6 +43,7 @@ RUN apt-get install -y alsa-utils
 RUN apt-get install -y --no-install-recommends pulseaudio-utils
 RUN apt-get install -y ca-certificates
 RUN apt-get install -y libavahi-compat-libdnssd1
+RUN apt-get install -y curl
     
 RUN	rm -rf /var/lib/apt/lists/*
 
