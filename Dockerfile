@@ -23,14 +23,11 @@ RUN apt-get install -y git
 
 RUN mkdir /src
 WORKDIR /src
-RUN git clone --branch master https://github.com/librespot-org/librespot.git
+RUN git clone --depth 1 --branch v0.6.0 https://github.com/librespot-org/librespot.git
 WORKDIR /src/librespot
 RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend with-avahi with-dns-sd with-libmdns"
 RUN cp /src/librespot/target/release/librespot /usr/bin/librespot
 WORKDIR /
-# RUN rm -Rf /src
-
-RUN rm -rf /var/lib/apt/lists/*
 
 FROM ${BASE_IMAGE:-library/debian:stable-slim} AS intermediate
 

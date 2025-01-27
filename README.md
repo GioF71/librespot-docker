@@ -311,6 +311,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2025-01-27|Build latest tag v0.6.0 instead of default branch
 2025-01-26|Added curl to the runtime dependencies (see [#113](https://github.com/GioF71/librespot-docker/issues/113))
 2025-01-03|Restored arm/v7 build
 2025-01-03|Build using cargo (see [#103](https://github.com/GioF71/librespot-docker/issues/103))
