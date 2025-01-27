@@ -311,6 +311,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2025-01-26|Added curl to the runtime dependencies (see [#113](https://github.com/GioF71/librespot-docker/issues/113))
 2025-01-03|Restored arm/v7 build
 2025-01-03|Build using cargo (see [#103](https://github.com/GioF71/librespot-docker/issues/103))
 2024-12-29|First release including [Raspotify 0.4.6](https://github.com/dtcooper/raspotify/releases/tag/0.46.0) (see [#101](https://github.com/GioF71/librespot-docker/issues/101))
