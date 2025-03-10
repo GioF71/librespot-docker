@@ -117,7 +117,7 @@ AUDIO_GID||Specifies the gid for the group `audio`, it is required if you want t
 PARAMETER_PRIORITY||Where to look for a parameter first: `env` or `file`. For example, the `credentials.txt` file compared to `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` environment variables. Defaults to `file`, meaning that each file is considered if it exists and if it contains the required values.
 ONEVENT_COMMAND||Specifies the name of a user defined script/executable that will be executed whenever a player event occurs. User defined scripts must be mounted to the `/userscripts/` folder and be made executable via `chmod u+x`. Internally maps to the `--onevent` flag of `librespot`. More info about usage can be found in [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs).
 ONEVENT_POST_ENDPOINT||Send a `POST` request with event data to the specified endpoint URL whenever a player event occurs. Request body is `json` encoded and contains all available fields specified by the [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs). Will be ignored if `ONEVENT_COMMAND` is set.
-ENABLE_OAUTH||Set to `headless` to enable OAUTH authentication. You will need to run the container interactively the first time. Recommended to enable when caching is also enabled.
+ENABLE_OAUTH||Set to `headless` to enable OAUTH authentication. You will need to run the container interactively the first time. Recommended to enable when caching is also enabled, otherwise the credentials file will be lost when the container is recreated.
 LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
 ADDITIONAL_ARGUMENTS||Use this to add additional arguments to be appended to the command line
 
@@ -150,7 +150,7 @@ Volume|Description
 /data/system-cache|Volume for system-cache (recommended), used by --system-cache (`ENABLE_SYSTEM_CACHE`).
 /user/config|Volume for user-provided configuration. Might contain a `credentials.txt` file.
 
-Please not that the volume `/data/system-cache` will contain the encrypted credentials. Enabling the system cache and using a dedicated volume will help keeping players discoverable by the Spotify web app when you don't provide credentials to LibreSpot.
+Please note that the volume `/data/system-cache` will contain the encrypted credentials. Enabling the system cache and using a dedicated volume will help keeping players discoverable by the Spotify web app when you don't provide credentials to LibreSpot.
 
 ### Examples
 
