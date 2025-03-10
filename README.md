@@ -150,7 +150,7 @@ Volume|Description
 /data/system-cache|Volume for system-cache (recommended), used by --system-cache (`ENABLE_SYSTEM_CACHE`).
 /user/config|Volume for user-provided configuration. Might contain a `credentials.txt` file.
 
-Please note that the volume `/data/system-cache` will contain the encrypted credentials. Enabling the system cache and using a dedicated volume will help keeping players discoverable by the Spotify web app when you don't provide credentials to LibreSpot.
+e that the volume `/data/system-cache` will contain the encrypted credentials. Enabling the system cache and using a dedicated volume will help keeping players discoverable by the Spotify web app when you don't provide credentials to LibreSpot.
 
 ### Examples
 
@@ -165,7 +165,7 @@ SPOTIFY_USERNAME=myusername
 SPOTIFY_PASSWORD=mypassword
 ```
 
-Please note that username and password is deprecated as an authentication method in librespot.  
+e that username and password is deprecated as an authentication method in librespot.  
 
 ##### Docker-compose in Alsa mode
 
@@ -235,7 +235,7 @@ Discovery mode, using docker `--user`:
 
 See [here](https://github.com/GioF71/audio-tools/tree/main/players/librespot/alsa) for a sample configuration using a specified user (uid) in a docker-compose file.  
 
-Please note that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
+e that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
 
 ##### Docker run in PulseAudio mode
 
@@ -296,7 +296,7 @@ By defaults, `SPOTIFY_USERNAME` and `SPOTIFY_PASSWORD` entries found in this fil
 
 For discovery mode to work, you will need to specify `network_mode=host` on the compose file. Otherwise the player will not be discoverable.  
 In this mode, authentication is not required on the container itself, but OTOH any premium spotify user on your network will be able to use your Librespot Player.  
-Please note that even when using the "discovery" mode, the premium account is always required for playback.  
+e that even when using the "discovery" mode, the premium account is always required for playback.  
 
 ## Build
 
@@ -304,7 +304,7 @@ You can build (or rebuild) the image by opening a terminal from the root of the 
 
 `docker build . -t giof71/librespot`
 
-Now that we are building from code, please not that the build will take quite a lot of time. When it's finished, you can run the container following the previous instructions.  
+Now that we are building from code, please note that the build will take quite a lot of time. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.
 
 ## Change History
