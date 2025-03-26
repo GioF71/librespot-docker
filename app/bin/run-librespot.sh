@@ -294,7 +294,9 @@ if [ -n "$VOLUME_RANGE" ]; then
 fi
 
 if [ "${AUTOPLAY^^}" = "Y" ]; then
-    CMD_LINE="$CMD_LINE --autoplay"
+    CMD_LINE="$CMD_LINE --autoplay=on"
+elif [ "${AUTOPLAY^^}" = "N" ]; then
+    CMD_LINE="$CMD_LINE --autoplay=off"
 fi
 
 if [ "${DISABLE_GAPLESS^^}" = "Y" ]; then
