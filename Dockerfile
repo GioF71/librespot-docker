@@ -35,7 +35,7 @@ COPY --from=base /usr/bin/librespot /usr/bin/librespot
 
 # Add runtime dependencies only
 RUN apt-get update
-RUN apt-get install -y libasound2
+RUN apt-get install -y libasound2-plugins
 RUN apt-get install -y alsa-utils
 RUN apt-get install -y --no-install-recommends pulseaudio-utils
 RUN apt-get install -y ca-certificates
