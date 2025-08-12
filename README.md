@@ -78,7 +78,7 @@ BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
 BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa`, `pulseaudio` and `pipe`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
 DEVICE_NAME||Device name (spaces allowed).
-DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`, `homething`. Defaults to `speaker`.
+DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`. Defaults to `speaker`.
 DEVICE||Audio device to use. Use `?` to list options if using `alsa`, `portaudio` or `rodio`. Enter the path to the output when using `pipe`. Defaults to the backend's default.
 FORMAT|S16|Output format: `F64`, `F32`, `S32`, `S24`, `S24_3`, `S16`. Defaults to `S16`.
 ENABLE_CACHE||`Y` or `y` to enable, uses corresponding volume.
