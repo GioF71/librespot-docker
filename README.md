@@ -1,14 +1,12 @@
 # librespot-docker
 
-A Docker image for librespot
+A Docker image for [librespot](https://github.com/librespot-org/librespot)
 
 ## News
 
-The current `latest` image does not play any file. See [this issue](https://github.com/GioF71/librespot-docker/issues/128).  
-There is a workaround, mentioned in the issue, that (at least in my case) worked with the `latest` image.  
-You can however use the image tagged as `develop-2025-08-11-bookworm`, in that case you don't need that workaround.  
-That image uses the current (as per 2025-08-12) `dev` branch of the librespot repository (link to the repo is just below), instead of the official `v0.6.0` release.  
-With the new version, the device type `homething` has been removed (supposedly because of changes on Spotify itself).  
+The current `latest` image is built on the current `dev` branch of [librespot](https://github.com/librespot-org/librespot), at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64).  
+This fixes [this issue](https://github.com/GioF71/librespot-docker/issues/128) even using the `latest` image, without the need to apply the suggested workaround (for that, thanks to [this post on Moode Audio forum](https://moodeaudio.org/forum/showthread.php?tid=7915&pid=65727#pid65727)).  
+I will use [my fork of librespot](https://github.com/GioF71/librespot-docker), purposedly created just to have a tag named `2025-08-11` at the specified commit.  
 
 ## Reference
 
@@ -319,6 +317,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2025-08-12|Build using current `dev` branch at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64), using my fork
 2025-03-27|Fix autoplay (see [#122](https://github.com/GioF71/librespot-docker/issues/122))
 2025-01-27|Build latest tag v0.6.0 instead of default branch
 2025-01-26|Added curl to the runtime dependencies (see [#113](https://github.com/GioF71/librespot-docker/issues/113))

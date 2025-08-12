@@ -23,7 +23,7 @@ RUN apt-get install -y git
 
 RUN mkdir /src
 WORKDIR /src
-RUN git clone --depth 1 --branch dev https://github.com/librespot-org/librespot.git
+RUN git clone --depth 1 --branch dev-2025-08-11 https://github.com/GioF71/librespot.git
 WORKDIR /src/librespot
 RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend with-avahi with-dns-sd with-libmdns"
 RUN cp /src/librespot/target/release/librespot /usr/bin/librespot
