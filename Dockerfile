@@ -23,7 +23,7 @@ RUN apt-get install -y git
 
 RUN mkdir /src
 WORKDIR /src
-RUN git clone --depth 1 --branch v0.6.0 https://github.com/librespot-org/librespot.git
+RUN git clone --depth 1 --branch dev https://github.com/librespot-org/librespot.git
 WORKDIR /src/librespot
 RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend with-avahi with-dns-sd with-libmdns"
 RUN cp /src/librespot/target/release/librespot /usr/bin/librespot
@@ -35,7 +35,7 @@ COPY --from=base /usr/bin/librespot /usr/bin/librespot
 
 # Add runtime dependencies only
 RUN apt-get update
-RUN apt-get install -y libasound2
+RUN apt-get install -y libasound2-plugins
 RUN apt-get install -y alsa-utils
 RUN apt-get install -y --no-install-recommends pulseaudio-utils
 RUN apt-get install -y ca-certificates

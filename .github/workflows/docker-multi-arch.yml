@@ -5,7 +5,7 @@ on:
     tags:
       - "release/*"
       - "main/*"
-      - "devel/*"
+      - "develop/*"
       - "feature/*"
       - "daily/*"
 
@@ -66,9 +66,9 @@ jobs:
             if [ "${ref_name}" = "main" ]; then
               echo "main branch";
               tags="${image_name}:main-${distro_id}";
-            elif [ "${ref_name}" = "devel" ]; then
-              echo "devel branch";
-              tags="${image_name}:devel-${distro_id}"
+            elif [ "${ref_name}" = "develop" ]; then
+              echo "develop branch";
+              tags="${image_name}:develop-${distro_id}"
             else
               echo "other branch ["${ref_name}"]";
               tags="${image_name}:branch-${ref_name}-${distro_id}";
@@ -94,11 +94,11 @@ jobs:
             elif [ "${tag_type}" = "main" ]; then
               echo "main tag";
               tags="${image_name}:main-${tag_name}-${distro_id}";
-            elif [ "${tag_type}" = "devel" ]; then
-              echo "devel tag";
-              tags="${image_name}:devel-${tag_name}-${distro_id}";
+            elif [ "${tag_type}" = "develop" ]; then
+              echo "develop tag";
+              tags="${image_name}:develop-${tag_name}-${distro_id}";
             elif [ "${tag_type}" = "feature" ]; then
-              echo "devel tag";
+              echo "develop tag";
               tags="${image_name}:feature-${tag_name}-${distro_id}";
             elif [ "${tag_type}" = "daily" ]; then
               echo "daily build";
