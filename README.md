@@ -2,6 +2,14 @@
 
 A Docker image for librespot
 
+## News
+
+The current `latest` image does not play any file. See [this issue](https://github.com/GioF71/librespot-docker/issues/128).  
+There is a workaround, mentioned in the issue, that (at least in my case) worked with the `latest` image.  
+You can however use the image tagged as `develop-2025-08-11-bookworm`, in that case you don't need that workaround.  
+That image uses the current (as per 2025-08-12) `dev` branch of the librespot repository (link to the repo is just below), instead of the official `v0.6.0` release.  
+With the new version, the device type `homething` has been removed (supposedly because of changes on Spotify itself).  
+
 ## Reference
 
 First and foremost, the reference to the awesome project:
@@ -78,7 +86,7 @@ BITRATE|160|Bitrate (kbps): `96`, `160`, `320`. Defaults to `160`.
 BACKEND|alsa|Audio backend to use. Use `?` to list options. Currently possible values are `alsa`, `pulseaudio` and `pipe`.
 INITIAL_VOLUME||Initial volume in % from 0-100. Default for softvol: `50`. For the `alsa` mixer: the current volume.
 DEVICE_NAME||Device name (spaces allowed).
-DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`, `homething`. Defaults to `speaker`.
+DEVICE_TYPE|speaker|Displayed device type: `computer`, `tablet`, `smartphone`, `speaker`, `tv`, `avr` (Audio/Video Receiver), `stb` (Set-Top Box), `audiodongle`, `gameconsole`, `castaudio`, `castvideo`, `automobile`, `smartwatch`, `chromebook`, `carthing`. Defaults to `speaker`.
 DEVICE||Audio device to use. Use `?` to list options if using `alsa`, `portaudio` or `rodio`. Enter the path to the output when using `pipe`. Defaults to the backend's default.
 FORMAT|S16|Output format: `F64`, `F32`, `S32`, `S24`, `S24_3`, `S16`. Defaults to `S16`.
 ENABLE_CACHE||`Y` or `y` to enable, uses corresponding volume.
