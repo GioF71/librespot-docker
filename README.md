@@ -1,6 +1,6 @@
 # librespot-docker
 
-A Docker image for librespot
+A Docker image for [librespot](https://github.com/librespot-org/librespot)
 
 ## News
 
