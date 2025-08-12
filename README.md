@@ -4,10 +4,10 @@ A Docker image for [librespot](https://github.com/librespot-org/librespot)
 
 ## News
 
-The upcoming `latest` image, building now (see [here](https://github.com/GioF71/librespot-docker/actions/runs/16904408175)) on the current `dev` branch of [librespot](https://github.com/librespot-org/librespot), at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64).  
-As that updated `latest` image is expected to be publicly available at around `14:30:00 CEST`, in the meantime you can use the already available image tagged as `develop-2025-08-11-bookworm`, see [on DockerHub](https://hub.docker.com/r/giof71/librespot/tags?name=develop-2025-08-11).  
-This fixes [this issue](https://github.com/GioF71/librespot-docker/issues/128) even using the `latest` image, without the need to apply the suggested workaround (for that, thanks to [this post on Moode Audio forum](https://moodeaudio.org/forum/showthread.php?tid=7915&pid=65727#pid65727)).  
-I will use [my fork of librespot](https://github.com/GioF71/librespot-docker), purposedly created just to have a tag named `dev-2025-08-11` at the specified commit.  
+The upcoming `latest` image, based on the current `dev` branch of [librespot](https://github.com/librespot-org/librespot), at [this commit], is currently building (see [here](https://github.com/GioF71/librespot-docker/actions/runs/16904408175))(https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64).  
+For now, I am using [my fork of librespot](https://github.com/GioF71/librespot-docker), purposedly created just to have a tag named `dev-2025-08-11` at the specified commit.  
+As this updated `latest` image is expected to be publicly available at around `14:30:00 CEST`, in the meantime you can use the already available image tagged as `develop-2025-08-11-bookworm`, see [on DockerHub](https://hub.docker.com/r/giof71/librespot/tags?name=develop-2025-08-11).  
+These images fix [this issue](https://github.com/GioF71/librespot-docker/issues/128), without the need to apply the suggested workaround (for that, thanks to [this post on Moode Audio forum](https://moodeaudio.org/forum/showthread.php?tid=7915&pid=65727#pid65727)).  
 
 ## Reference
 
