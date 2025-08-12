@@ -2,6 +2,14 @@
 
 A Docker image for librespot
 
+## News
+
+The current `latest` image does not play any file. See [this issue](https://github.com/GioF71/librespot-docker/issues/128).  
+There is a workaround, mentioned in the issue, that (at least in my case) worked with the `latest` image.  
+You can however use the image tagged as `develop-2025-08-11-bookworm`, in that case you don't need that workaround.  
+That image uses the current (as per 2025-08-12) `dev` branch of the librespot repository (link to the repo is just below), instead of the official `v0.6.0` release.  
+With the new version, the device type `homething` has been removed (supposedly because of changes on Spotify itself).  
+
 ## Reference
 
 First and foremost, the reference to the awesome project:
