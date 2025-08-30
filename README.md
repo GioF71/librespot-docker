@@ -316,6 +316,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2025-08-30|Build using latest version (v0.7.0) (see [#144](https://github.com/GioF71/librespot-docker/issues/144))
 2025-08-12|Build using current `dev` branch at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64), using my fork
 2025-03-27|Fix autoplay (see [#122](https://github.com/GioF71/librespot-docker/issues/122))
 2025-01-27|Build latest tag v0.6.0 instead of default branch
