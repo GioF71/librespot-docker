@@ -25,7 +25,7 @@ RUN mkdir /src
 WORKDIR /src
 RUN git clone --depth 1 --branch master-v0.7.0 https://github.com/GioF71/librespot.git
 WORKDIR /src/librespot
-RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features "alsa-backend pulseaudio-backend with-avahi with-dns-sd with-libmdns"
+RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --no-default-features --features "native-tls alsa-backend pulseaudio-backend with-avahi with-dns-sd with-libmdns"
 RUN cp /src/librespot/target/release/librespot /usr/bin/librespot
 WORKDIR /
 
