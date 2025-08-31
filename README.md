@@ -4,8 +4,7 @@ A Docker image for [librespot](https://github.com/librespot-org/librespot)
 
 ## News
 
-The newest `latest` image, based on the current `dev` branch of [librespot](https://github.com/librespot-org/librespot) at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64), is built using [my fork of librespot](https://github.com/GioF71/librespot), purposedly created just to have a tag named `dev-2025-08-11` at the specified commit.  
-These images fix [this issue](https://github.com/GioF71/librespot-docker/issues/128), without the need to apply the suggested workaround (for that, thanks to [this post on Moode Audio forum](https://moodeaudio.org/forum/showthread.php?tid=7915&pid=65727#pid65727)).  
+The newest `latest` image is based on the current `v0.7.1` version of [librespot](https://github.com/librespot-org/librespot) at [this commit](https://github.com/librespot-org/librespot/commit/987dfa5df2546a96d34582674a757a3dcc6036a7), is built using [my fork of librespot](https://github.com/GioF71/librespot).  
 
 ## Reference
 
@@ -316,6 +315,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2025-08-31|Build using latest version (v0.7.1) (see [#146](https://github.com/GioF71/librespot-docker/issues/146))
 2025-08-31|Build using latest version (v0.7.0) (see [#144](https://github.com/GioF71/librespot-docker/issues/144))
 2025-08-12|Build using current `dev` branch at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64), using my fork
 2025-03-27|Fix autoplay (see [#122](https://github.com/GioF71/librespot-docker/issues/122))
