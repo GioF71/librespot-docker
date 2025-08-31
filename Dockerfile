@@ -14,6 +14,7 @@ RUN apt-get install -y libclang-dev
 RUN apt-get install -y libasound2-dev
 RUN apt-get install -y libpulse-dev
 RUN apt-get install -y libavahi-compat-libdnssd-dev
+RUN apt-get install -y libssl-dev
 RUN apt-get install -y pkg-config
 
 # runtime
