@@ -237,7 +237,7 @@ docker run -d --name librespot \
 
 Discovery mode, using docker `--user`:
 
-See [here](https://github.com/GioF71/audio-tools/tree/main/players/librespot/alsa) for a sample configuration using a specified user (uid) in a docker-compose file.  
+See [this page](https://github.com/GioF71/audio-tools/tree/main/players/librespot/alsa) for a sample configuration using a specified user (uid) in a docker-compose file.  
 
 Note that with this DAC I had to specify S32 as the format. It would not work with the default (which is S32 for librespot).
 
@@ -315,6 +315,7 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
+2025-11-02|Add python3 package (see [#149](https://github.com/GioF71/librespot-docker/issues/149))
 2025-08-31|Build using latest version (v0.7.1) (see [#146](https://github.com/GioF71/librespot-docker/issues/146))
 2025-08-31|Build using latest version (v0.7.0) (see [#144](https://github.com/GioF71/librespot-docker/issues/144))
 2025-08-12|Build using current `dev` branch at [this commit](https://github.com/librespot-org/librespot/commit/ba3d501b08345aadf207d09b3a0713853228ba64), using my fork
