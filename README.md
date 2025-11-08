@@ -5,6 +5,7 @@ A Docker image for [librespot](https://github.com/librespot-org/librespot)
 ## News
 
 The newest `latest` image is based on the current `v0.7.1` version of [librespot](https://github.com/librespot-org/librespot) at [this commit](https://github.com/librespot-org/librespot/commit/987dfa5df2546a96d34582674a757a3dcc6036a7), is built using [my fork of librespot](https://github.com/GioF71/librespot).  
+The purpose of that fork is just to set a version for this repository.  
 
 ## Reference
 
