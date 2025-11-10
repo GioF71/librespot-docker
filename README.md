@@ -316,8 +316,8 @@ Just be careful to use the tag you have built.
 
 Change Date|Major Changes
 ---|---
-2025-11-08|Build using [this commit](https://github.com/librespot-org/librespot/commit/84a3302168b8b25d44f1b313ca20155959f553e0)
-2025-11-08|Build with [upstream PR 1622](https://github.com/librespot-org/librespot/pull/1622) merged to dev (see [#152](https://github.com/GioF71/librespot-docker/issues/152))
+2025-11-10|Build with [upstream version 0.8.0](https://github.com/librespot-org/librespot/releases/tag/v0.8.0) (see [#154](https://github.com/GioF71/librespot-docker/issues/154))
+2025-11-08|Build with [upstream PR #1622](https://github.com/librespot-org/librespot/pull/1622) merged to dev (see [#152](https://github.com/GioF71/librespot-docker/issues/152))
 2025-11-02|Add python3 package (see [#149](https://github.com/GioF71/librespot-docker/issues/149))
 2025-08-31|Build using latest version (v0.7.1) (see [#146](https://github.com/GioF71/librespot-docker/issues/146))
 2025-08-31|Build using latest version (v0.7.0) (see [#144](https://github.com/GioF71/librespot-docker/issues/144))
