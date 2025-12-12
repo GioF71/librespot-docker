@@ -243,6 +243,10 @@ if [ $discovery_enabled -eq 1 ]; then
         echo "Using zeroconf port [$ZEROCONF_PORT}]"
         CMD_LINE="$CMD_LINE --zeroconf-port $ZEROCONF_PORT"
     fi
+    if [ -n "$ZEROCONF_INTERFACE" ]; then
+        echo "Using zeroconf interfaces [$ZEROCONF_INTERFACE}]"
+        CMD_LINE="$CMD_LINE --zeroconf-interface $ZEROCONF_INTERFACE"
+    fi
     zeroconf_backend=$DEFAULT_ZEROCONF_BACKEND
     if [[ -n "${ZEROCONF_BACKEND}" ]]; then
         zeroconf_backend=$ZEROCONF_BACKEND
