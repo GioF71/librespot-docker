@@ -4,7 +4,7 @@ A Docker image for [librespot](https://github.com/librespot-org/librespot)
 
 ## News
 
-The newest `latest` image is based on the current `v0.7.1` version of [librespot](https://github.com/librespot-org/librespot) at [this commit](https://github.com/librespot-org/librespot/commit/987dfa5df2546a96d34582674a757a3dcc6036a7), is built using [my fork of librespot](https://github.com/GioF71/librespot).  
+The newest `latest` image is based on the current `v0.8.0` version of [librespot](https://github.com/librespot-org/librespot) at [this commit](https://github.com/librespot-org/librespot/pull/1632/commits/0cbdd122ae81b51c62954c60b306051e9021a805), is built using [my fork of librespot](https://github.com/GioF71/librespot).  
 The purpose of that fork is just to set a version for this repository.  
 
 ## Reference
@@ -102,6 +102,7 @@ AP_PORT||Connect to an AP with a specified port. If no AP with that port is pres
 DISABLE_DISCOVERY||Disable zeroconf discovery mode. `Y` or `y` to disable discovery.
 DITHER||Dither algorithm: none, gpdf, tpdf, tpdf_hp. Defaults to tpdf for formats S16, S24, S24_3 and none for other formats.
 ZEROCONF_PORT||The port the internal server advertises over zeroconf: `1` - `65535`. Ports <= `1024` may require root privileges.
+ZEROCONF_INTERFACE||Comma-separated interface IP addresses on which zeroconf will bind (Example "192.168.0.10,10.0.0.10"). Defaults to all interfaces. Ignored by DNS-SD.
 ZEROCONF_BACKEND||Select the desidered backend, valid values are `avahi`, `libmdns`, `dns-sd`. With the latest builds, I am getting good results with `libmdns`, so it will be the default if discovery is not disabled
 ENABLE_VOLUME_NORMALISATION||Enables volume normalisation for librespot. `Y` or `y` to enable.
 NORMALISATION_METHOD||Specify the normalisation method to use: `basic`, `dynamic`. Defaults to `dynamic`.
@@ -124,7 +125,7 @@ ONEVENT_COMMAND||Specifies the name of a user defined script/executable that wil
 ONEVENT_POST_ENDPOINT||Send a `POST` request with event data to the specified endpoint URL whenever a player event occurs. Request body is `json` encoded and contains all available fields specified by the [librespot's player event handler](https://github.com/librespot-org/librespot/blob/dev/src/player_event_handler.rs). Will be ignored if `ONEVENT_COMMAND` is set.
 ENABLE_OAUTH||Set to `headless` to enable OAUTH authentication. You will need to run the container interactively the first time. Recommended to enable when caching is also enabled, otherwise the credentials file will be lost when the container is recreated.
 LOG_COMMAND_LINE||Set to  `Y` or `y` to enable, `N` or `n` to disable. Defaults to `Y`.
-ADDITIONAL_ARGUMENTS||Use this to add additional arguments to be appended to the command line
+ADDITIONAL_ARGUMENTS||Use this to add additional arguments to be appended to the command line. </br> Librespot arguments can be found [here](https://github.com/librespot-org/librespot/wiki/Options).
 
 ### Pipe Mode
 
